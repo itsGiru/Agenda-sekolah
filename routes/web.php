@@ -40,13 +40,16 @@ Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('gues
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
+//dashboard
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+	//profile
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('checkUserRole:1,2,3,4');
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update')->middleware('checkUserRole:1,2,3,4');
 	Route::post('/delete-profile-image', [UserProfileController::class, 'deleteProfileImage'])->name('delete-profile-image')->middleware('checkUserRole:1,2,3,4');
 
+	//user management
 	Route::get('user_management', [App\Http\Controllers\UsermanagementController::class, 'UserList'])->name('users.index')->middleware('checkUserRole:1,3,4');
 	Route::get('/edit_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserEdit'])->middleware('checkUserRole:1');
 	Route::post('/update_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserUpdate'])->middleware('checkUserRole:1');
