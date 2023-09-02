@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update')->middleware('checkUserRole:1,2,3,4');
 	Route::post('/delete-profile-image', [UserProfileController::class, 'deleteProfileImage'])->name('delete-profile-image')->middleware('checkUserRole:1,2,3,4');
 
+	//list walas
+	Route::get('walas', [App\Http\Controllers\UsermanagementController::class, 'WalasList'])->name('list-walas.index')->middleware('checkUserRole:1,2,3,4');
+
 	//user management
 	Route::get('user_management', [App\Http\Controllers\UsermanagementController::class, 'UserList'])->name('users.index')->middleware('checkUserRole:1,3,4');
 	Route::get('/edit_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserEdit'])->middleware('checkUserRole:1');

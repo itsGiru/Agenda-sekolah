@@ -15,6 +15,12 @@ class UsermanagementController extends Controller
     }
 
 
+    public function WalasList(Request $request)
+    {
+        $list = DB::table('users')->get();
+        return view('list-walas.list_walas', compact('list'));
+    }
+
     public function UserList(Request $request)
     {
         $list = DB::table('users')->get();
