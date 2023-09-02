@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-auto my-auto">
-                    <a type="button" class="btn btn-success btn-sm mt-2" href="https://wa.me/{{ auth()->user()->no_wa }}">Whatsapp</a>
+                    <a type="button" class="btn btn-success btn-sm mt-2" href="https://wa.me/{{ strpos(auth()->user()->no_wa, '0') === 0 ? '62' . substr(auth()->user()->no_wa, 1) : auth()->user()->no_wa }}" target="blank_">Whatsapp</a>
                 </div>
                 <div class="col-auto my-auto"> <!-- Tetap di sebelah kanan pada tampilan desktop -->
                     <form action="{{ route('delete-profile-image') }}" method="POST">
@@ -68,7 +68,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Whatsapp</label>
-                                        <input class="form-control" type="text" name="no_wa" id="no_wa" placeholder="62851xxxxxxxx"
+                                        <input class="form-control" type="text" name="no_wa" id="no_wa" placeholder="0851xxxxxxxx"
                                             value="{{ old('no_wa', auth()->user()->no_wa) }}">
                                     </div>
                                 </div>                                
