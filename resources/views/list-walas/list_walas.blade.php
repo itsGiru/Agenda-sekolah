@@ -31,7 +31,7 @@
                                                     @if ($row->profile_image)
                                                         <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
                                                     @else
-                                                        <img src="img/bruce-mars.jpg" class="avatar mr-2" alt="image">
+                                                        <img src="img/donat.jpg" class="avatar mr-2" alt="image">
                                                     @endif
                                                 </div>                                            
                                             </td>
@@ -53,8 +53,14 @@
                                                 @endphp
                                             </td>
                                             <td class="col-12 col-sm-2 align-middle text-center text-sm">
-                                                <a type="button" class="btn btn-success btn-sm mt-2" href="https://wa.me/{{ strpos($row->no_wa, '0') === 0 ? '62' . substr($row->no_wa, 1) : $row->no_wa }}" target="blank_">Whatsapp</a>
-                                            </td>
+                                                @if (!empty($row->no_wa))
+                                                    @php
+                                                        // Menghasilkan URL WhatsApp jika nomor WhatsApp tersedia
+                                                        $whatsapp_url = strpos($row->no_wa, '0') === 0 ? 'https://wa.me/62' . substr($row->no_wa, 1) : 'https://wa.me/' . $row->no_wa;
+                                                    @endphp
+                                                    <a type="button" class="btn btn-success btn-sm mt-2" href="{{ $whatsapp_url }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
+                                                @endif
+                                            </td>                                            
                                         </tr>
                                     @endif
                                 @endforeach

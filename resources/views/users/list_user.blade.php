@@ -20,6 +20,7 @@
                                     <th class="text-center"></th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Kontak</th>
                                     <th class="text-center">Izin</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -33,12 +34,21 @@
                                                 <?php if ($row->profile_image): ?>
                                                     <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
                                                 <?php else: ?>
-                                                    <img src="img/bruce-mars.jpg" class="avatar mr-2" alt="image">
+                                                    <img src="img/donat.jpg" class="avatar mr-2" alt="image">
                                                 <?php endif; ?>
                                             </div>                                            
                                         </td>
-                                        <td class="col-6 col-sm-3 align-middle text-center text-sm">{{ $row->name }}</td>
-                                        <td class="col-6 col-sm-3 align-middle text-center text-sm">{{ $row->email }}</td>
+                                        <td class="col-6 col-sm-2 align-middle text-center text-sm">{{ $row->name }}</td>
+                                        <td class="col-6 col-sm-2 align-middle text-center text-sm">{{ $row->email }}</td>
+                                        <td class="col-12 col-sm-1 align-middle text-center text-sm">
+                                            @if (!empty($row->no_wa))
+                                                @php
+                                                    // Menghasilkan URL WhatsApp jika nomor WhatsApp tersedia
+                                                    $whatsapp_url = strpos($row->no_wa, '0') === 0 ? 'https://wa.me/62' . substr($row->no_wa, 1) : 'https://wa.me/' . $row->no_wa;
+                                                @endphp
+                                                <a type="button" class="btn btn-success btn-sm mt-2" href="{{ $whatsapp_url }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
+                                            @endif
+                                        </td>            
                                         <td class="col-12 col-sm-2 align-middle text-center text-sm">
                                             @php
                                                 if ($row->role == 1) {

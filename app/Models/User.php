@@ -61,7 +61,7 @@ class User extends Authenticatable
         if ($this->profile_image) {
             return asset('storage/' . $this->profile_image);
         } else {
-            return asset('img/bruce-mars.jpg'); // Ganti dengan path gambar default yang sesuai
+            return asset('img/donat.jpg'); // Ganti dengan path gambar default yang sesuai
         }
     }
 

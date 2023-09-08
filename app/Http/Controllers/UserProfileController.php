@@ -29,8 +29,8 @@ class UserProfileController extends Controller
             'province' => ['max:100'],
             'postal' => ['max:100'],
             'about' => ['max:255'],
-            'profile_image' => ['image'],
-            'no_wa' => ['min:11', 'max:13', 'regex:/^[0-9]+$/' /* menambahkan aturan regex */],
+            'profile_image' => ['nullable', 'image'],
+            'no_wa' => ['nullable', 'min:11', 'max:13', 'regex:/^[0-9]+$/' /* menambahkan aturan regex */],
         ], [
             'no_wa.regex' => 'Nomor WhatsApp tidak valid. Harus berupa angka.',
         ]);
