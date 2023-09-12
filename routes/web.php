@@ -46,7 +46,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::group(['middleware' => 'auth'], function () {
 	//Harian
-	Route::get('/laporanharian',  [LaporanHarianController::class, 'show'])->name('harian.index')->middleware('checkUserRole:1,2,3,4');
+	Route::get('/daily-report',  [LaporanHarianController::class, 'show'])->name('harian.index')->middleware('checkUserRole:1,2,3,4');
 
 	//profile
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('checkUserRole:1,2,3,4');
