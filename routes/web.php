@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\LaporanHarianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+	//Harian
+	Route::get('/laporanharian',  [LaporanHarianController::class, 'show'])->name('harian.index')->middleware('checkUserRole:1,2,3,4');
+
 	//profile
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('checkUserRole:1,2,3,4');
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update')->middleware('checkUserRole:1,2,3,4');
@@ -61,4 +65,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+
+	//Bulanan
+	//Route::get('/laporan_bulanan', 'LaporanController@bulanan')->name('laporan.bulanan');
+
 });
