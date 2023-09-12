@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title" style="background: #e9e9e9">Laporan Harian</h3>
+                    <h3 class="card-title">Laporan Harian</h3>
                 </div>
                 <div class="card-body">
                     <form>
