@@ -8,8 +8,8 @@
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
                         <img src="{{ auth()->user()->getProfileImageURL() }}" alt="profile_image"
-                             class="w-100 border-radius-lg shadow-sm">
-                    </div>                    
+                            class="w-100 border-radius-lg shadow-sm">
+                    </div>
                 </div>
                 <div class="col my-auto">
                     <div class="h-100">
@@ -23,9 +23,11 @@
                 </div>
                 <div class="col-auto my-auto">
                     @if (!empty(auth()->user()->no_wa))
-                        <a type="button" class="btn btn-success btn-sm mt-2" href="https://wa.me/{{ strpos(auth()->user()->no_wa, '0') === 0 ? '62' . substr(auth()->user()->no_wa, 1) : auth()->user()->no_wa }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
+                        <a type="button" class="btn btn-success btn-sm mt-2"
+                            href="https://wa.me/{{ strpos(auth()->user()->no_wa, '0') === 0 ? '62' . substr(auth()->user()->no_wa, 1) : auth()->user()->no_wa }}"
+                            target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
                     @endif
-                </div>                
+                </div>
                 <div class="col-auto my-auto">
                     @if (auth()->user()->profile_image)
                         <form action="{{ route('delete-profile-image') }}" method="POST">
@@ -33,10 +35,10 @@
                             <button type="submit" class="btn btn-danger btn-sm mt-2">Hapus Foto Profil</button>
                         </form>
                     @endif
-                </div>                
+                </div>
             </div>
         </div>
-    </div>        
+    </div>
     <div id="alert">
         @include('components.alert')
     </div>
@@ -44,7 +46,7 @@
         <div class="row">
             <div>
                 <div class="card">
-                    <form role="form" method="POST" action={{ route('profile.update') }} enctype="multipart/form-data">
+                    <form role="form" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
@@ -58,25 +60,46 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Nama</label>
-                                        <input class="form-control" type="text" name="name" value="{{ old('name', auth()->user()->name) }}">
+                                        <input class="form-control" type="text" name="name"
+                                            value="{{ old('name', auth()->user()->name) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Alamat Email</label>
-                                        <input class="form-control" type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
+                                        <input class="form-control" type="email" name="email"
+                                            value="{{ old('email', auth()->user()->email) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Whatsapp</label>
-                                        <input class="form-control" type="text" name="no_wa" id="no_wa" placeholder="0851xxxxxxxx"
-                                            value="{{ old('no_wa', auth()->user()->no_wa) }}">
+                                        <input class="form-control" type="text" name="no_wa" id="no_wa"
+                                            placeholder="0851xxxxxxxx" value="{{ old('no_wa', auth()->user()->no_wa) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <form role="form" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                                        <label for="kelas">Kelas</label>
+                                        <select name="kelas"
+                                            class="form-control select @error('kelas') is-invalid @enderror"id="kelas">
+                                            @foreach (\App\Models\User::KELAS as $kelas => $value)
+                                                <option value="{{ $kelas }}"
+                                                    {{ old('kelas', auth()->user()->kelas) == $kelas ? 'selected' : '' }}>
+                                                    {{ $kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('quantity')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <form role="form" method="POST" action="{{ route('profile.update') }}"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <!-- Field lainnya -->
                                             <div class="form-group">
@@ -87,7 +110,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <hr class="horizontal dark">
                             <p class="text-uppercase text-sm">Informasi Kontak</p>
                             <div class="row">
@@ -137,5 +160,5 @@
             </div>
         </div>
         @include('layouts.footers.auth.footer')
-    </div>           
+    </div>
 @endsection

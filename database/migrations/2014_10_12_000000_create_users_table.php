@@ -26,9 +26,15 @@ return new class extends Migration
             $table->text('about')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('no_wa')->nullable();
-            $table->string('role')->default('5')->comments('1-Admin, 2-KM, 3-Walas, 4-Kakom, 5-Pending');
+            $table->string('role')->default('6')->comments('1-Admin, 2-KM, 3-Walas, 4-Kakom, 5-No role, 6-Pending');
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('kelas', [
+                'XII RPL 1',
+                'XII RPL 2',
+            ]);
         });
     }
 

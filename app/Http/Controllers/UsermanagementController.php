@@ -75,7 +75,7 @@ class UsermanagementController extends Controller
         $user = DB::table('users')->where('id', $id)->first();
 
         if ($user->role == 5) {
-            DB::table('users')->where('id', $id)->update(['role' => 2]);
+            DB::table('users')->where('id', $id)->update(['role' => 5]);
             return redirect()->route('users.index')->with('success', 'Izin akun berhasil diubah.');
         } else {
             return redirect()->route('users.index')->with('error', 'Tidak dapat mengubah izin akun.');

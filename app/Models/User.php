@@ -28,7 +28,12 @@ class User extends Authenticatable
         'about',
         'profile_image',
         'no_wa',
+        'kelas',
 
+    ];
+    const KELAS = [
+        'XII RPL 1' => 'XII RPL 1',
+        'XII RPL 2' => 'XII RPL 2',
     ];
 
     /**

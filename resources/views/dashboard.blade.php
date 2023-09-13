@@ -392,7 +392,7 @@
         </div>
         @include('layouts.footers.auth.footer')
     </div>
-    @if (Auth::user()->role == 5)
+    @if (Auth::user()->role == 6)
     <div class="overlayblock">
         <div>
             <p>Akun anda masih dalam peninjauan oleh admin</p>

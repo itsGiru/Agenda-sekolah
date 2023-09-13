@@ -60,14 +60,17 @@
                                                 } elseif ($row->role == 4) {
                                                     echo 'Kakom';
                                                 } elseif ($row->role == 5) {
+                                                    echo 'Belum ada role';
+                                                } elseif ($row->role == 6) {
                                                     echo 'Pending';
                                                 }
+                                                
                                             @endphp
                                         </td>
                                         <td class="col-12 col-sm-2 align-middle text-center text-sm">
                                             <a href="{{ URL::to('/edit_user/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('delete_user/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
-                                            @if ($row->role == 5)
+                                            @if ($row->role == 6)
                                                 <form action="{{ URL::to('/change_role/' . $row->id) }}" method="POST">
                                                     @csrf
                                                     <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i>&nbsp;Izinkan</button>

@@ -31,6 +31,9 @@
                                         echo 'Izin saat ini adalah : <b>Kakom</b>';
                                     }
                                     if ($edit->role == 5) {
+                                        echo 'Izin saat ini adalah : <b>Tidak ada role</b>';
+                                    }
+                                    if ($edit->role == 6) {
                                         echo 'Izin saat ini adalah : <b>Pending</b>';
                                     }
                                     
@@ -43,7 +46,8 @@
                                     <option value="2">Ketua murid</option>
                                     <option value="3">Walas</option>
                                     <option value="4">Kakom</option>
-                                    <option value="5">Cabut izin</option>
+                                    <option value="5">Tidak ada role</option>
+                                    <option value="6">Cabut izin</option>
                                 </select>
                             </div>
                         </div>
