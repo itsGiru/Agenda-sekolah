@@ -56,6 +56,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//list walas
 	Route::get('walas', [App\Http\Controllers\UsermanagementController::class, 'WalasList'])->name('list-walas.index')->middleware('checkUserRole:1,2,3,4,5');
 
+	//list KM
+	Route::get('km', [App\Http\Controllers\UsermanagementController::class, 'KmList'])->name('list-km.index')->middleware('checkUserRole:1,2,3,4,5');
+
 	//user management
 	Route::get('user_management', [App\Http\Controllers\UsermanagementController::class, 'UserList'])->name('users.index')->middleware('checkUserRole:1');
 	Route::get('/edit_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserEdit'])->middleware('checkUserRole:1');
