@@ -20,6 +20,9 @@ class RegisterController extends Controller
             'password' => 'required|min:5|max:255',
             'terms' => 'required'
         ]);
+
+        $attributes['password'] = bcrypt(request('password')); // Enkripsi password
+
         $user = User::create($attributes);
         auth()->login($user);
 

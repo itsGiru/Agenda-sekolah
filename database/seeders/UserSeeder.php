@@ -14,16 +14,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrCreate([
-            'name' => 'Fatih Firdaus'
-        ], [
+        User::create([
             'name' => 'Fatih Firdaus',
             'email' => 'fatih@gmail.com',
             'password' => bcrypt('admin123'),
-            'address' => 'Perum bumi jaya indah BLOK AR-24',
-            'city' => 'Purwakarta',
-            'province' => 'Jawa Barat',
-            'postal' => '41118',
             'about' => 'Hello world',
             'role' => 1,
         ]);

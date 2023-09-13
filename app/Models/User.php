@@ -50,12 +50,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Always encrypt the password when it is updated.
-     *
-     * @param $value
-     * @return string
-     */
     public function getProfileImageURL()
     {
         if ($this->profile_image) {
@@ -64,5 +58,4 @@ class User extends Authenticatable
             return asset('img/donat.jpg'); // Ganti dengan path gambar default yang sesuai
         }
     }
-
 }
