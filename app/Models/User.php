@@ -28,12 +28,21 @@ class User extends Authenticatable
         'about',
         'profile_image',
         'no_wa',
+        'jurusan',
         'kelas',
 
     ];
+    const JURUSAN = [
+        'Pilih Jurusan' => 'Pilih Jurusan',
+        'Rekayasa Perangkat Lunak' => 'Rekayasa Perangkat Lunak',
+        'Tata Busana' => 'Tata Busana',
+    ];
     const KELAS = [
+        'Pilih Jurusan Dahulu' => 'Pilih Jurusan Dahulu',
         'XII RPL 1' => 'XII RPL 1',
         'XII RPL 2' => 'XII RPL 2',
+        'XII TB 1' => 'XII TB 1',
+        'XII TB 2' => 'XII TB 2',
     ];
 
     /**
