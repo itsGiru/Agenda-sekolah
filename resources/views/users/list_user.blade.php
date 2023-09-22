@@ -33,13 +33,13 @@
                                     <tr>
                                         <td class="text-center">{{ $row->id }}</td>
                                         <td class="text-center">
-                                            <div class="d-flex align-items-center">
+                                            <div class="align-items-center">
                                                 <?php if ($row->profile_image): ?>
                                                     <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
                                                 <?php else: ?>
                                                     <img src="img/donat.jpg" class="avatar mr-2" alt="image">
                                                 <?php endif; ?>
-                                            </div>                                            
+                                            </div>                          
                                         </td>
                                         <td class="text-center">{{ $row->name }}</td>
                                         <td class="text-center">{{ $row->email }}</td>
