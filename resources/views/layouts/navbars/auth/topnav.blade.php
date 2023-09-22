@@ -11,14 +11,8 @@
             <h6 class="font-weight-bolder text-white mb-0">{{ $title }}</h6>
         </nav>
         <ul class="navbar-nav justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-                <a href="{{ route('profile') }}" class="nav-link text-white font-weight-bold px-0">
-                    <img src="{{ auth()->user()->getProfileImageURL() }}" alt="Profile Image"
-                        class="me-sm-1 rounded-circle profile-image" style="width: 32px; height: 32px;">
-                    <span class="d-sm-inline d-none">{{ auth()->user()->name ?? 'Undefined' }}</span>
-                </a>
-            </li>
-            <li class="nav-item d-flex align-items-center ms-3">
+
+            <li class="nav-item d-flex align-items-center ms-3" style="margin-right: 20px">
                 <!-- Tambahkan class ms-3 untuk memberikan margin kiri -->
                 <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                     @csrf
@@ -30,6 +24,16 @@
                     </a>
                 </form>
             </li>
+
+
+            <li class="nav-item d-flex align-items-center">
+                <a href="{{ route('profile') }}" class="nav-link text-white font-weight-bold px-0">
+                    <img src="{{ auth()->user()->getProfileImageURL() }}" alt="Profile Image"
+                        class="me-sm-1 rounded-circle profile-image" style="width: 32px; height: 32px;">
+                    <span class="d-sm-inline d-none">{{ auth()->user()->name ?? 'Undefined' }}</span>
+                </a>
+            </li>
+
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                     <div class="sidenav-toggler-inner">

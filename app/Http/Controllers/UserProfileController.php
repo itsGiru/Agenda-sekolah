@@ -17,7 +17,6 @@ class UserProfileController extends Controller
     {
         $user = auth()->user();
 
-        $user->jurusan = $request->jurusan;
         $user->kelas = $request->kelas;
 
         $attributes = $request->validate([
@@ -47,7 +46,7 @@ class UserProfileController extends Controller
             'province' => $attributes['province'],
             'postal' => $attributes['postal'],
             'about' => $attributes['about'],
-            'no_wa' => $attributes['no_wa'],
+            'no_wa' => $attributes['no_wa']
         ]);
 
         if ($request->hasFile('profile_image')) {

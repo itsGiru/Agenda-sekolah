@@ -85,6 +85,38 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.password-toggle-log {
+  position: absolute;
+  top: 225px;
+  margin-right: 30px;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* CSS untuk mengatur ikon mata saat hover */
+.password-toggle-log:hover {
+  color: #007bff; /* Warna yang sesuai saat tombol mata dihover */
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+.password-toggle i {
+  font-size: 1.2rem;
+  color: #999;
+}
+
 
 hr {
   margin: 1rem 0;
@@ -21144,7 +21176,6 @@ hr.horizontal.gray-light {
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
   display: block;
   overflow: auto;
-  height: calc(100vh - 360px);
 }
 .navbar-vertical.navbar-expand-xs > [class*=container] {
   flex-direction: column;

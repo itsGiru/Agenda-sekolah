@@ -18,12 +18,25 @@ class UsermanagementController extends Controller
     public function WalasList(Request $request)
     {
         $list = DB::table('users')->get();
-        return view('list-walas.list_walas', compact('list'));
+        return view('list_walas.list_walas', compact('list'));
     }
     public function KmList(Request $request)
     {
         $list = DB::table('users')->get();
         return view('list_km.list_km', compact('list'));
+    }
+
+
+    public function GuruList(Request $request)
+    {
+       $list = DB::table('users')->get();
+        return view('list_guru.list_guru    ', compact('list'));
+    }
+
+    public function AddUser(Request $request)
+    {
+       $list = DB::table('users')->get();
+        return view('users.add-user', compact('list'));
     }
 
     public function UserList(Request $request)
@@ -33,11 +46,6 @@ class UsermanagementController extends Controller
     }
 
 
-    public function UserAdd()
-    {
-        $all = DB::table('users')->get();
-        return view('users.create_User', compact('all'));
-    }
     public function UserEdit($id)
     {
         $edit = DB::table('users')
@@ -80,7 +88,7 @@ class UsermanagementController extends Controller
         $user = DB::table('users')->where('id', $id)->first();
 
         if ($user->role == 6) {
-            DB::table('users')->where('id', $id)->update(['role' => 5]);
+            DB::table('users')->where('id', $id)->update(['role' => 2]);
             return redirect()->route('users.index')->with('success', 'Izin akun berhasil diubah.');
         } else {
             return redirect()->route('users.index')->with('error', 'Tidak dapat mengubah izin akun.');

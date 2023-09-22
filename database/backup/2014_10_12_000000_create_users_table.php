@@ -31,9 +31,20 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::table('users', function (Blueprint $table) {
+            $table->enum('jurusan', [
+                'Pilih Jurusan',
+                'Rekayasa Perangkat Lunak',
+                'Tata Busana',
+            ]);
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->enum('kelas', [
+                'Pilih Jurusan Dahulu',
                 'XII RPL 1',
                 'XII RPL 2',
+                'XII TB 1',
+                'XII TB 2',
+
             ]);
         });
     }

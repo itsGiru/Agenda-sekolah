@@ -37,22 +37,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List Walas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List KM</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
@@ -60,26 +44,78 @@
                     <span class="nav-link-text ms-1">Manajemen User</span>
                 </a>
             </li>
+
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pages</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">List</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Wali Kelas</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ str_contains(request()->url(), 'tables') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'tables']) }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Ketua Murid</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'list-siswa.index' ? 'active' : '' }}" href="{{ route('list-siswa.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Siswa</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Jadwal</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Mata Pelajaran</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan</h6>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link {{ str_contains(request()->url(), 'tables') == true ? 'active' : '' }}" href="#">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Tables</span>
+                    <span class="nav-link-text ms-1">Absen Guru</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'absen_siswa.index' ? 'active' : '' }}" href="{{ route('absen_siswa.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Absen Siswa</span>
+                </a>
+            </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'harian.index' ? 'active' : '' }}" href="{{ route('harian.index') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Laporan Harian</span>
+                        <span class="nav-link-text ms-1">List Laporan Harian</span>
                     </a>
                 </li>
-            </li>
         </ul>
     </div>
     @endif
@@ -111,14 +147,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List KM</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
@@ -137,15 +165,6 @@
                     </div>
                     <span class="nav-link-text ms-1">Tables</span>
                 </a>
-            </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'harian.index' ? 'active' : '' }}" href="{{ route('harian.index') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Laporan Harian</span>
-                    </a>
-                </li>
             </li>
         </ul>
     </div>
@@ -178,19 +197,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List KM</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">List Walas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Manajemen User</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
@@ -204,15 +223,6 @@
                     </div>
                     <span class="nav-link-text ms-1">Tables</span>
                 </a>
-            </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'harian.index' ? 'active' : '' }}" href="{{ route('harian.index') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Laporan Harian</span>
-                    </a>
-                </li>
             </li>
         </ul>
     </div>
@@ -245,14 +255,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List KM</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
@@ -278,61 +280,6 @@
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Tables</span>
-                </a>
-            </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'harian.index' ? 'active' : '' }}" href="{{ route('harian.index') }}">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Laporan Harian</span>
-                    </a>
-                </li>
-            </li>
-        </ul>
-    </div>
-    @endif
-
-    {{-- No Roles sidebar --}}
-    @if (Auth::user()->role == 5)
-    <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Akun</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Profil</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-km.index' ? 'active' : '' }}" href="{{ route('list-km.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List KM</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">List Walas</span>
                 </a>
             </li>
         </ul>

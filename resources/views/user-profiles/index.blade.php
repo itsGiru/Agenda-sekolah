@@ -16,9 +16,6 @@
                         <h5 class="mb-1">
                             {{ auth()->user()->name ?? 'Lorem Ipsum' }}
                         </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            {{ auth()->user()->about ?? 'No bio' }}
-                        </p>
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -46,8 +43,7 @@
         <div class="row">
             <div>
                 <div class="card">
-                    <form role="form" method="POST" action="{{ route('profile.update') }}"
-                        enctype="multipart/form-data">
+                    <form role="form" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
@@ -74,48 +70,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Whatsapp</label>
-                                        <input class="form-control" type="text" name="no_wa" id="no_wa"
-                                            placeholder="0851xxxxxxxx" value="{{ old('no_wa', auth()->user()->no_wa) }}">
-                                    </div>
-                                </div>
-                                @if (Auth::user()->role == 2 || 3 || 4)
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="jurusan">Jurusan</label>
-                                        <select name="jurusan" class="form-control" id="jurusan">
-                                            @foreach (\App\Models\User::JURUSAN as $jurusan => $value)
-                                                <option value="{{ $jurusan }}"
-                                                    {{ old('jurusan', auth()->user()->jurusan) == $jurusan ? 'selected' : '' }}>
-                                                    {{ $jurusan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @endif
-                                @if (Auth::user()->role == 2 || 3)
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="kelas">Kelas</label>
-                                        <select name="kelas" class="form-control" id="kelas">
-                                            @foreach (\App\Models\User::KELAS as $kelas => $value)
-                                                @if (
-                                                    (auth()->user()->jurusan == 'Pilih Jurusan' && strpos($kelas, 'Pilih Jurusan Dahulu')) ||
-                                                        (auth()->user()->jurusan == 'Rekayasa Perangkat Lunak' && strpos($kelas, 'RPL')) ||
-                                                        (auth()->user()->jurusan == 'Tata Busana' && strpos($kelas, 'TB')))
-                                                    <option value="{{ $kelas }}"
-                                                        {{ old('kelas', auth()->user()->kelas) == $kelas ? 'selected' : '' }}>
-                                                        {{ $kelas }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <form role="form" method="POST" action="{{ route('profile.update') }}"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -128,47 +82,22 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                            <hr class="horizontal dark">
-                            <p class="text-uppercase text-sm">Informasi Kontak</p>
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Alamat</label>
-                                        <input class="form-control" type="text" name="address"
-                                            value="{{ old('address', auth()->user()->address) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Kota</label>
-                                        <input class="form-control" type="text" name="city"
-                                            value="{{ old('city', auth()->user()->city) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Provinsi</label>
-                                        <input class="form-control" type="text" name="province"
-                                            value="{{ old('province', auth()->user()->province) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Kode Pos</label>
-                                        <input class="form-control" type="text" name="postal"
-                                            value="{{ old('postal', auth()->user()->postal) }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="horizontal dark">
-                            <p class="text-uppercase text-sm">Tentang Saya</p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Bio</label>
-                                        <input class="form-control" type="text" name="about"
-                                            value="{{ old('about', auth()->user()->about) }}">
+                                        <label for="kelas">Kelas</label>
+                                        <select name="kelas"
+                                            class="form-control select @error('kelas') is-invalid @enderror"id="kelas">
+                                            @foreach (\App\Models\User::KELAS as $kelas => $value)
+                                                <option value="{{ $kelas }}"
+                                                    {{ old('kelas', auth()->user()->kelas) == $kelas ? 'selected' : '' }}>
+                                                    {{ $kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('quantity')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -176,68 +105,6 @@
                     </form>
                 </div>
             </div>
-            <script>
-                // Dapatkan elemen-elemen dropdown
-                const jurusanDropdown = document.getElementById('jurusan');
-                const kelasDropdown = document.getElementById('kelas');
-
-                // Definisikan objek yang memetakan jurusan ke opsi kelas yang valid
-                const kelasOptions = {
-                    'Pilih Jurusan': [
-                        'Pilih Jurusan Dahulu',
-                    ],
-                    'Rekayasa Perangkat Lunak': [
-                        'XII RPL 1',
-                        'XII RPL 2',
-                    ],
-                    'Tata Busana': [
-                        'XII TB 1',
-                        'XII TB 2',
-                    ]
-                    // Tambahkan jurusan dan kelas yang sesuai sesuai dengan kebutuhan Anda
-                };
-
-                // Fungsi untuk menghapus semua opsi dari dropdown kelas
-                function clearKelasDropdown() {
-                    while (kelasDropdown.options.length > 0) {
-                        kelasDropdown.remove(0);
-                    }
-                }
-
-                // Tangani perubahan pada dropdown jurusan
-                jurusanDropdown.addEventListener('change', function() {
-                    const selectedJurusan = jurusanDropdown.value;
-                    const kelasOptionsForJurusan = kelasOptions[selectedJurusan] || [];
-
-                    // Bersihkan opsi kelas sebelum menambahkan yang baru
-                    clearKelasDropdown();
-
-                    // Tambahkan opsi kelas yang sesuai
-                    kelasOptionsForJurusan.forEach(function(kelas) {
-                        const option = document.createElement('option');
-                        option.value = kelas;
-                        option.text = kelas;
-                        kelasDropdown.appendChild(option);
-                    });
-                });
-
-                // Inisialisasi opsi kelas saat halaman dimuat
-                const initialJurusan = jurusanDropdown.value;
-                const initialKelasOptions = kelasOptions[initialJurusan] || [];
-                const selectedKelas = '{{ old('kelas', auth()->user()->kelas) }}'; // Dapatkan kelas yang sudah dipilih sebelumnya
-
-                kelasDropdown.innerHTML = ''; // Hapus semua opsi kelas sebelum menambahkan yang baru
-
-                initialKelasOptions.forEach(function(kelas) {
-                    const option = document.createElement('option');
-                    option.value = kelas;
-                    option.text = kelas;
-                    if (kelas === selectedKelas) {
-                        option.selected = true; // Tetapkan opsi yang sudah dipilih sebelumnya sebagai terpilih
-                    }
-                    kelasDropdown.appendChild(option);
-                });
-            </script>
         </div>
         @include('layouts.footers.auth.footer')
     </div>

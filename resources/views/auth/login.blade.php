@@ -9,7 +9,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
                         <h1 class="text-white mb-2 mt-5">Sampurasun!</h1>
-                        <p class="text-lead text-white">SMK Negeri 2 Purwakarta.</p>
+                        <h5 class="text-lead text-white">Agenda Harian SMK Negeri 2 Purwakarta</h5>
                     </div>
                 </div>
             </div>
@@ -17,10 +17,10 @@
         <div class="container">
             <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
                 <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-                    <div class="card z-index-0">
-                        <div class="card-header text-center pt-4">
+                    <div class="card z-index-0" style="background-color: rgb(234, 234, 234)">
+                        <div class="card-header text-center pt-4" style="background-color: rgb(234, 234, 234)">
                             <h4 class="font-weight-bolder">Masuk</h4>
-                            <p class="mb-0">Masuk kedalam Aplikasi</p>
+                            <p class="mb-0">Silahkan Login Terlebih Dahulu</p>
                         </div>
                         <div class="card-body">
                             <form role="form" method="POST" action="{{ route('login.perform') }}">
@@ -31,7 +31,8 @@
                                     @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                 </div>
                                 <div class="flex flex-col mb-3">
-                                    <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" placeholder="Password" >
+                                    <input type="password" name="password" id="password" class="form-control form-control-lg" aria-label="Password" placeholder="Password">
+                                    <span  class="password-toggle-log" onclick="togglePasswordVisibility()"><i id="password-icon" class="fas fa-eye-slash"></i></span>
                                     @error('password') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                 </div>
                                 <div class="form-check form-switch">
@@ -61,6 +62,25 @@
         </div>
     </main>
     @include('layouts.footers.guest.footer')
+
+    <script>
+        var passwordInput = document.getElementById('password');
+        var passwordIcon = document.getElementById('password-icon');
+    
+        function togglePasswordVisibility() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            }
+        }
+    </script>
+
 @endsection
+
 
 

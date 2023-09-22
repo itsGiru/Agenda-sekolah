@@ -6,7 +6,10 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Users</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6>Users</h6>
+                        <a href="add_user" class="btn btn-success">Tambah User</a>
+                    </div>
                 </div>
                 <div id="alert">
                     @include('components.alert')
@@ -17,7 +20,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">ID</th>
-                                    <th class="text-center"></th>
+                                    <th class="text-center">Profil</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Kontak</th>
@@ -28,8 +31,8 @@
                             <tbody>
                                 @foreach ($list as $row)
                                     <tr>
-                                        <td class="col-12 col-sm-2 align-middle text-center text-sm">{{ $row->id }}</td>
-                                        <td>
+                                        <td class="text-center">{{ $row->id }}</td>
+                                        <td class="text-center">
                                             <div class="d-flex align-items-center">
                                                 <?php if ($row->profile_image): ?>
                                                     <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
@@ -38,9 +41,9 @@
                                                 <?php endif; ?>
                                             </div>                                            
                                         </td>
-                                        <td class="col-6 col-sm-2 align-middle text-center text-sm">{{ $row->name }}</td>
-                                        <td class="col-6 col-sm-2 align-middle text-center text-sm">{{ $row->email }}</td>
-                                        <td class="col-12 col-sm-1 align-middle text-center text-sm">
+                                        <td class="text-center">{{ $row->name }}</td>
+                                        <td class="text-center">{{ $row->email }}</td>
+                                        <td class="text-center">
                                             @if (!empty($row->no_wa))
                                                 @php
                                                     // Menghasilkan URL WhatsApp jika nomor WhatsApp tersedia
@@ -49,7 +52,7 @@
                                                 <a type="button" class="btn btn-success btn-sm mt-2" href="{{ $whatsapp_url }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
                                             @endif
                                         </td>            
-                                        <td class="col-12 col-sm-2 align-middle text-center text-sm">
+                                        <td class="text-center">
                                             @php
                                                 if ($row->role == 1) {
                                                     echo 'Admin';
@@ -64,10 +67,9 @@
                                                 } elseif ($row->role == 6) {
                                                     echo 'Pending';
                                                 }
-                                                
                                             @endphp
                                         </td>
-                                        <td class="col-12 col-sm-2 align-middle text-center text-sm">
+                                        <td class="text-center">
                                             <a href="{{ URL::to('/edit_user/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('delete_user/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
                                             @if ($row->role == 6)
@@ -88,4 +90,3 @@
     </div>
     @include('layouts.footers.auth.footer')
 @endsection
-
