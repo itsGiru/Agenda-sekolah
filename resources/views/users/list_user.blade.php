@@ -20,10 +20,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">ID</th>
-                                    <th class="text-center">Profil</th>
+                                    <th class="text-center"></th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
-                                    <th class="text-center">Kontak</th>
+                                    <th class="text-center">Jurusan</th>
                                     <th class="text-center">Izin</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -43,15 +43,7 @@
                                         </td>
                                         <td class="text-center">{{ $row->name }}</td>
                                         <td class="text-center">{{ $row->email }}</td>
-                                        <td class="text-center">
-                                            @if (!empty($row->no_wa))
-                                                @php
-                                                    // Menghasilkan URL WhatsApp jika nomor WhatsApp tersedia
-                                                    $whatsapp_url = strpos($row->no_wa, '0') === 0 ? 'https://wa.me/62' . substr($row->no_wa, 1) : 'https://wa.me/' . $row->no_wa;
-                                                @endphp
-                                                <a type="button" class="btn btn-success btn-sm mt-2" href="{{ $whatsapp_url }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
-                                            @endif
-                                        </td>            
+                                        <td class="text-center">{{ $row->jurusan === 'Pilih Jurusan' ? '-' : $row->jurusan }}</td>      
                                         <td class="text-center">
                                             @php
                                                 if ($row->role == 1) {

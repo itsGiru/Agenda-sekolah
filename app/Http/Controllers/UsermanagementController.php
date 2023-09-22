@@ -30,7 +30,7 @@ class UsermanagementController extends Controller
     public function GuruList(Request $request)
     {
        $list = DB::table('users')->get();
-        return view('list_guru.list_guru    ', compact('list'));
+        return view('list_guru.list_guru', compact('list'));
     }
 
     public function AddUser(Request $request)
