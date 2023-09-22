@@ -17,7 +17,7 @@
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Kelas</th>
                                     <th class="text-center">Jenis Kelamin</th>
-                                    <th class="text-center">Aksi</th> <!-- Jika Anda ingin menambahkan kolom aksi -->
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,9 +27,6 @@
                                         <td class="text-center">{{ $row->nama }}</td>
                                         <td class="text-center">{{ $row->kelas_jurusan }}</td>
                                         <td class="text-center">{{ $row->jenis_kelamin }}</td>
-                                        <td class="text-center">
-                                            <!-- Isi dengan tautan atau tombol aksi sesuai kebutuhan Anda -->
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -39,6 +36,5 @@
             </div>
         </div>
     </div>
-    
     @include('layouts.footers.auth.footer')
 @endsection

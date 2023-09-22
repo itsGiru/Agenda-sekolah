@@ -12,6 +12,8 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\LaporanHarianController;
 use App\Http\Controllers\AbsenSiswaController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\GuruController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('siswa', [App\Http\Controllers\SiswaController::class, 'SiswaList'])->name('list-siswa.index')->middleware('checkUserRole:1,2,3,4,5');
 
 	//list Guru
-	Route::get('guru', [App\Http\Controllers\UsermanagementController::class, 'GuruList'])->name('list-guru.index')->middleware('checkUserRole:1,2,3,4,5');
+	Route::get('guru', [App\Http\Controllers\GuruController::class, 'GuruList'])->name('list-guru.index')->middleware('checkUserRole:1,2,3,4,5');
 
 	//Absen Siswa
 	Route::get('/absen_siswa',  [AbsenSiswaController::class, 'index'])->name('absen_siswa.index')->middleware('checkUserRole:1,2,3,4');

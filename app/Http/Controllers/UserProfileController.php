@@ -17,8 +17,6 @@ class UserProfileController extends Controller
     {
         $user = auth()->user();
 
-        $user->kelas = $request->kelas;
-
         $attributes = $request->validate([
             'name' => ['required', 'max:255', 'min:2'],
             'email' => [
@@ -26,14 +24,13 @@ class UserProfileController extends Controller
                 'email',
                 'max:255', Rule::unique('users')->ignore($user->id),
             ],
-            'profile_image' => ['nullable', 'image']
+            'profile_image' => ['nullable', 'image'],
         ]);
         
 
         $user->update([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'address' => $attributes['address']
         ]);
 
         if ($request->hasFile('profile_image')) {

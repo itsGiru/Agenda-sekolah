@@ -18,7 +18,8 @@
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Izin</th>
-                                    <th class="text-center">Telp</th>
+                                    <th class="text-center">Wali Kelas</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,16 +52,7 @@
                                                         echo 'Pending';
                                                     }
                                                 @endphp
-                                            </td>
-                                            <td class="col-12 col-sm-2 align-middle text-center text-sm">
-                                                @if (!empty($row->no_wa))
-                                                    @php
-                                                        // Menghasilkan URL WhatsApp jika nomor WhatsApp tersedia
-                                                        $whatsapp_url = strpos($row->no_wa, '0') === 0 ? 'https://wa.me/62' . substr($row->no_wa, 1) : 'https://wa.me/' . $row->no_wa;
-                                                    @endphp
-                                                    <a type="button" class="btn btn-success btn-sm mt-2" href="{{ $whatsapp_url }}" target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
-                                                @endif
-                                            </td>                                            
+                                            </td>                                      
                                         </tr>
                                     @endif
                                 @endforeach

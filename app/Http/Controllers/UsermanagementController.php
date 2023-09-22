@@ -6,6 +6,8 @@ use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Jurusan;
+use App\Models\Kelas;
 
 class UsermanagementController extends Controller
 {
@@ -26,17 +28,12 @@ class UsermanagementController extends Controller
         return view('list_km.list_km', compact('list'));
     }
 
-
-    public function GuruList(Request $request)
-    {
-       $list = DB::table('users')->get();
-        return view('list_guru.list_guru', compact('list'));
-    }
-
     public function AddUser(Request $request)
     {
-       $list = DB::table('users')->get();
-        return view('users.add-user', compact('list'));
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+        $list = DB::table('users')->get();
+        return view('users.add-user', compact('list', 'jurusan', 'kelas'));
     }
 
     public function UserList(Request $request)

@@ -18,10 +18,17 @@ class RegisterController extends Controller
             'name' => 'required|max:255|min:2',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:5|max:255',
-            'terms' => 'required'
+            'role' => 'required'
         ]);
 
         $attributes['password'] = bcrypt(request('password')); // Enkripsi password
+        if ($attributes ['role']=='2' || $attributes ['role']=='3'){
+            $attributes ['id_jurusan'] ='required';
+            $attributes ['id_kelas'] ='required';
+        }
+        elseif ($attributes ['role']=='4') {
+            $attributes ['id_jurusan'] = 'required';
+        }
 
         $user = User::create($attributes);
         auth()->login($user);
