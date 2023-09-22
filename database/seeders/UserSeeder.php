@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
             'name' => 'Fatih Firdaus',
             'email' => 'fatih@gmail.com',
             'password' => bcrypt('admin123'),
-            'about' => 'Hello world',
             'role' => 1,
         ]);
     }

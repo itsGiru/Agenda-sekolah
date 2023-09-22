@@ -26,27 +26,14 @@ class UserProfileController extends Controller
                 'email',
                 'max:255', Rule::unique('users')->ignore($user->id),
             ],
-            'address' => ['max:100'],
-            'city' => ['max:100'],
-            'province' => ['max:100'],
-            'postal' => ['max:100'],
-            'about' => ['max:255'],
-            'profile_image' => ['nullable', 'image'],
-            'no_wa' => ['nullable', 'min:11', 'max:13', 'regex:/^[0-9]+$/' /* menambahkan aturan regex */],
-        ], [
-            'no_wa.regex' => 'Nomor WhatsApp tidak valid. Harus berupa angka.',
+            'profile_image' => ['nullable', 'image']
         ]);
         
 
         $user->update([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'address' => $attributes['address'],
-            'city' => $attributes['city'],
-            'province' => $attributes['province'],
-            'postal' => $attributes['postal'],
-            'about' => $attributes['about'],
-            'no_wa' => $attributes['no_wa']
+            'address' => $attributes['address']
         ]);
 
         if ($request->hasFile('profile_image')) {
