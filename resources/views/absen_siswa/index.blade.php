@@ -32,7 +32,7 @@
         -ms-text-size-adjust: 100%;
         text-size-adjust: 100%;
         background: #0e7c7c;
-        font-size: 14px;
+        font-size: 15px;
       }
       body,
       html {
