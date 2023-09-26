@@ -46,16 +46,31 @@
                         <div class="form-group" id="jurusan" style="display: none;">
                             <label for="jurusan">Jurusan</label>
                             <select id="jurusanSelect" name="id_jurusan" class="form-control" required>
+<<<<<<< HEAD
+                                <option value="99">Pilih Jurusan</option>
+                                @foreach($jurusan as $item)
+                                <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
+                                @endforeach
+=======
                                 @foreach($jurusan as $item)
                                 <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
                                 @endforeach
                                 <!-- Tambahkan opsi kelas sesuai kebutuhan -->
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                             </select>
                         </div>
 
                         <div class="form-group" id="kelasJurusan" style="display: none;">
                             <label for="kelas">Kelas</label>
                             <select id="kelasSelect" name="id_kelas" class="form-control" required>
+<<<<<<< HEAD
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                        <button type="submit" class="btn btn-primary bg-gradient-dark w-100 my-4 mb-2">Submit</button>
+                        </div>
+=======
                                 @foreach($kelas as $item)
                                 <option value="{{ $item->id }}">{{ $item->kelas }}</option>
                                 @endforeach
@@ -64,6 +79,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                     </form>
                 </div>
             </div>
@@ -71,6 +87,13 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+
+@endsection
+
+@push('js')
+=======
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
 <script>
     // Tampilkan atau sembunyikan field Kelas dan Jurusan sesuai dengan pilihan Role
     document.getElementById('role').addEventListener('change', function () {
@@ -93,7 +116,43 @@
             kelasSelectElement.removeAttribute('required');
         }
     });
+<<<<<<< HEAD
+
+        // When the "jurusanSelect" element's value changes
+        document.getElementById('jurusanSelect').addEventListener('change', function () {
+        // Get the selected jurusan value
+        var selectedJurusan = this.value;
+
+        // Make an Axios GET request to your API endpoint to fetch options data
+        axios.get('/jurusankelas/'+selectedJurusan) // Replace with your actual API endpoint
+            .then(function (response) {
+                // Handle the response data, assuming it's an array of options
+                var optionsData = response.data;
+                console.log(optionsData);
+
+                // Get the "kelasSelect" element
+                var kelasSelectElement = document.getElementById('kelasSelect');
+
+                // Remove existing options
+                kelasSelectElement.innerHTML = '';
+
+                // Add new options based on the selected jurusan
+                optionsData.forEach(function (option) {
+                    // Check if the option matches the selected jurusan or is empty (for default option)
+                        var optionElement = document.createElement('option');
+                        optionElement.value = option.id;
+                        optionElement.text = option.kelas;
+                        kelasSelectElement.appendChild(optionElement);
+                });
+            })
+            .catch(function (error) {
+                console.error('Error fetching options:', error);
+            });
+    });
+
+=======
     
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
 
     var passwordInput = document.getElementById('password');
     var passwordIcon = document.getElementById('password-icon');
@@ -111,4 +170,8 @@
     }
 
 </script>
+<<<<<<< HEAD
+@endpush
+=======
 @endsection
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61

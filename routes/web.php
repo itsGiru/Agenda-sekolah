@@ -11,6 +11,10 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\LaporanHarianController;
 use App\Http\Controllers\AbsenSiswaController;
+<<<<<<< HEAD
+use App\Http\Controllers\AbsenGuruController;
+=======
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\GuruController;
 
@@ -75,6 +79,13 @@ Route::group(['middleware' => 'auth'], function () {
 	//Absen Siswa
 	Route::get('/absen_siswa',  [AbsenSiswaController::class, 'index'])->name('absen_siswa.index')->middleware('checkUserRole:1,2,3,4');
 
+<<<<<<< HEAD
+	//Absen Guru
+	Route::get('/absen_guru',  [AbsenGuruController::class, 'index'])->name('absen_guru.index')->middleware('checkUserRole:1,2,3,4');
+
+
+=======
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
 
 	//user management
 	Route::get('user_management', [App\Http\Controllers\UsermanagementController::class, 'UserList'])->name('users.index')->middleware('checkUserRole:1');
@@ -83,6 +94,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/change_role/{id}', [App\Http\Controllers\UsermanagementController::class, 'changeRole'])->name('user.changeRole')->middleware('checkUserRole:1');
 	Route::get('/delete_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserDelete'])->middleware('checkUserRole:1');
 	Route::get('add_user', [App\Http\Controllers\UsermanagementController::class, 'AddUser'])->name('pages.add-user')->middleware('checkUserRole:1');
+<<<<<<< HEAD
+	Route::get('jurusankelas/{id}', [App\Http\Controllers\UsermanagementController::class, 'JurusanKelas']);
+	Route::post('/add_user', [App\Http\Controllers\UsermanagementController::class, 'store'])->name('register.perform');
+=======
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
 
 
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');

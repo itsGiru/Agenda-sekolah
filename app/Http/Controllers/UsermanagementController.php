@@ -16,6 +16,13 @@ class UsermanagementController extends Controller
         $this->middleware('auth');
     }
 
+    
+
+    public function JurusanKelas(int $id)
+    {
+        $list = DB::table('kelas')->where('id_jurusan', $id)->get();
+        return response()->json($list);
+    }
 
     public function WalasList(Request $request)
     {
@@ -36,6 +43,35 @@ class UsermanagementController extends Controller
         return view('users.add-user', compact('list', 'jurusan', 'kelas'));
     }
 
+<<<<<<< HEAD
+    public function store()
+    {
+        $attributes = request()->validate([
+            'name' => 'required|max:255|min:2',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|min:5|max:255',
+            'role' => 'required',
+            'id_jurusan' => 'nullable|required_if:role,2,3', // Validasi untuk id_jurusan (opsional jika role bukan 2 atau 3)
+            'id_kelas' => 'nullable|required_if:role,2,3', // Validasi untuk id_kelas (opsional jika role bukan 2 atau 3)
+        ]);
+
+        $attributes['password'] = bcrypt(request('password')); // Enkripsi password
+        if ($attributes ['role']=='2' || $attributes ['role']=='3'){
+            $attributes['id_jurusan'] = request('id_jurusan');
+            $attributes['id_kelas'] = request('id_kelas');
+        }
+        elseif ($attributes ['role']=='4') {
+            $attributes['id_jurusan'] = request('id_jurusan');
+        }
+
+        $user = User::create($attributes);
+        auth()->login($user);
+
+        return redirect('/user_management');
+    }
+
+=======
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
     public function UserList(Request $request)
     {
         $list = DB::table('users')->get();

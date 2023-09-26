@@ -91,7 +91,11 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
+<<<<<<< HEAD
+                    <span class="nav-link-text ms-1">List Jadwal</span>
+=======
                     <span class="nav-link-text ms-1">Mata Pelajaran</span>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                 </a>
             </li>
 
@@ -100,12 +104,20 @@
             </li>
             
             <li class="nav-item">
+<<<<<<< HEAD
+                <a class="nav-link {{ Route::currentRouteName() == 'absen_guru.index' ? 'active' : '' }}" href="{{ route('absen_guru.index') }}">
+=======
                 <a class="nav-link {{ str_contains(request()->url(), 'tables') == true ? 'active' : '' }}" href="#">
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
+<<<<<<< HEAD
+                    <span class="nav-link-text ms-1">Kehadiran Guru</span>
+=======
                     <span class="nav-link-text ms-1">Absen Guru</span>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                 </a>
             </li>
             <li class="nav-item">
@@ -113,7 +125,11 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
+<<<<<<< HEAD
+                    <span class="nav-link-text ms-1">Kehadiran Siswa</span>
+=======
                     <span class="nav-link-text ms-1">Absen Siswa</span>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                 </a>
             </li>
                 <li class="nav-item">

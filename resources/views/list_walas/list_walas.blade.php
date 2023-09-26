@@ -18,7 +18,11 @@
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Izin</th>
+<<<<<<< HEAD
+                                    <th class="text-center">Kelas</th>
+=======
                                     <th class="text-center">Wali Kelas</th>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                                     
                                 </tr>
                             </thead>

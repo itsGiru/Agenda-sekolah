@@ -33,7 +33,11 @@
                                     <tr>
                                         <td class="text-center">{{ $row->id }}</td>
                                         <td class="text-center">
+<<<<<<< HEAD
+                                            <div class="d-flex align-items-center">
+=======
                                             <div class="align-items-center">
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                                                 <?php if ($row->profile_image): ?>
                                                     <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
                                                 <?php else: ?>
@@ -44,6 +48,9 @@
                                         <td class="text-center">{{ $row->name }}</td>
                                         <td class="text-center">{{ $row->email }}</td>
                                         <td class="text-center">
+<<<<<<< HEAD
+                                        </td>            
+=======
                                             @php
                                                 if ($row->id_jurusan == 1) {
                                                     echo 'Rekayasa Perangkat Lunak';
@@ -51,6 +58,7 @@
                                                     echo 'Tata Busana';
                                                 }
                                             @endphp</td>
+>>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
                                         <td class="text-center">
                                             @php
                                                 if ($row->role == 1) {
