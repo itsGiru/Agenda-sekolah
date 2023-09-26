@@ -17,6 +17,8 @@ class UserProfileController extends Controller
     {
         $user = auth()->user();
 
+        $user->kelas = $request->kelas;
+
         $attributes = $request->validate([
             'name' => ['required', 'max:255', 'min:2'],
             'email' => [

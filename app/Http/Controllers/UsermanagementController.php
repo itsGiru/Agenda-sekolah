@@ -43,7 +43,6 @@ class UsermanagementController extends Controller
         return view('users.add-user', compact('list', 'jurusan', 'kelas'));
     }
 
-<<<<<<< HEAD
     public function store()
     {
         $attributes = request()->validate([
@@ -70,8 +69,6 @@ class UsermanagementController extends Controller
         return redirect('/user_management');
     }
 
-=======
->>>>>>> 37c50e3f56d1051223ade0ec29e862088b2aad61
     public function UserList(Request $request)
     {
         $list = DB::table('users')->get();
