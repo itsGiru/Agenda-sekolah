@@ -12,7 +12,8 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        $jurusan=Jurusan::all();
+        return view('jurusan.index', compact('jurusan'));
     }
 
     /**
@@ -28,7 +29,30 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'jurusan'=>'required',
+        ]);
+        $jurusan=Jurusan::create([
+            'jurusan'=>$request->jurusan
+        ]);
+
+        return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil ditambahkan');
+    }
+
+    public function delete($id)
+    {
+
+        $jurusan = Jurusan::find($id);
+    
+        if (!$jurusan) {
+            
+            return redirect()->route('jurusan.index')->with('error', 'Jurusan Tidak Ditemukan');
+        }
+    
+        // Hapus hubungan guru-mapel
+        $jurusan->delete();
+    
+        return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil dihapus');
     }
 
     /**

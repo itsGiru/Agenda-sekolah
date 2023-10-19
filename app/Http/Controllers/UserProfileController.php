@@ -16,24 +16,28 @@ class UserProfileController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-
-        $user->kelas = $request->kelas;
+        if ($request->has('id_kelas')) {
+            $user->id_kelas = $request->input('id_kelas');
+        }
 
         $attributes = $request->validate([
             'name' => ['required', 'max:255', 'min:2'],
             'email' => [
                 'required',
                 'email',
-                'max:255', Rule::unique('users')->ignore($user->id),
+                'max:255',
+                Rule::unique('users')->ignore($user->id),
             ],
             'profile_image' => ['nullable', 'image'],
         ]);
         
-
         $user->update([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
         ]);
+        
+        
+
 
         if ($request->hasFile('profile_image')) {
             if ($user->profile_image) {

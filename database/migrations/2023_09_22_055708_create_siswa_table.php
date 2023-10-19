@@ -22,6 +22,7 @@ return new class extends Migration
                 'Perempuan',
                 'Undefined'
             ])->default('Undefined');
+            $table->bigInteger('lulus')->default(0);
             $table->timestamps();
         });
     }

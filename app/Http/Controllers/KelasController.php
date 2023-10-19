@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\RiwayatKenaikanKelas;
+use App\Models\Siswa;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
 class KelasController extends Controller
@@ -12,7 +15,9 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
+        $kelas=Kelas::all();
+        $jurusan=Jurusan::all();
+        return view('kelas.index', compact('kelas', 'jurusan'));
     }
 
     /**
@@ -20,23 +25,93 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        $jurusan = Jurusan::all(); // Mengambil semua data jurusan
+        return view('kelas.index', compact('jurusan'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'kelas' => 'required',
+            'jurusan' => 'required',
+            'tingkat' => 'required',
+        ]);
+    
+        // Cek apakah kombinasi tingkat dan kelas sudah ada dalam database
+        $kelasExists = Kelas::where('kelas', $request->kelas)
+            ->where('id_jurusan', $request->jurusan)
+            ->where('tingkat', $request->tingkat)
+            ->exists();
+    
+        if ($kelasExists) {
+            return redirect()->route('kelas.index')->with('error', 'Kelas tersebut sudah ada');
+        }
+    
+        $kelas = Kelas::create([
+            'kelas' => $request->kelas,
+            'id_jurusan' => $request->jurusan,
+            'tingkat' => $request->tingkat,
+        ]);
+    
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil ditambahkan');
     }
+    
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(Kelas $kelas)
+    public function show(int $id)
     {
-        //
+        $jurusan=Jurusan::find($id);
+        $kelas=Kelas::whereIdJurusan($id)->pluck('id');
+        $list=Siswa::whereIn('id_kelas', $kelas)->where('lulus', 0)->count();
+        $riwayat=RiwayatKenaikanKelas::where('id_jurusan', $id)->latest()->get();
+        return view('kelas.kenaikan', compact('kelas', 'list', 'jurusan', 'riwayat'));
+    }
+
+    public function kenaikan(int $id)
+    {
+        $kelas=Kelas::whereIdJurusan($id)->get();
+        foreach ($kelas as $item) {
+            if ( $item->tingkat=='12') {
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['lulus'=>1]);
+            
+            } elseif ( $item->tingkat=='11' ){
+                $naikKelas=Kelas::where('tingkat', '12')->where('id_jurusan', $item->id_jurusan)->firstOrCreate(
+                    ['tingkat'=>'12'],
+                    ['kelas'=>$item->kelas],
+                    ['id_jurusan'=>$item->id_jurusan]
+                );
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas'=>$naikKelas->id]);
+            } elseif ( $item->tingkat=='10' ){
+                $naikKelas=Kelas::where('tingkat', '11')->where('id_jurusan', $item->id_jurusan)->firstOrCreate(
+                    ['tingkat'=>'11'],
+                    ['kelas'=>$item->kelas],
+                    ['id_jurusan'=>$item->id_jurusan]
+                );
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas'=>$naikKelas->id]);
+
+            }
+            
+        }
+        RiwayatKenaikanKelas::create(['id_jurusan'=>$id]);
+        return redirect()->route('jurusan.index')->with('success', 'Berhasil Menaikkan Kelas');
+    }
+
+    public function delete($id)
+    {
+
+        $kelas = Kelas::find($id);
+    
+        if (!$kelas) {
+            
+            return redirect()->route('jurusan.index')->with('error', 'Kelas Tidak Ditemukan');
+        }
+    
+        // Hapus hubungan guru-mapel
+        $kelas->delete();
+    
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dihapus');
     }
 
     /**

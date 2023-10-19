@@ -30,10 +30,18 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
+        if (auth()->check()) {
         $jumlahGuru = Guru::count();
         $jumlahMapel = Mapel::count();
         $jumlahKelas = Kelas::count();
         $jumlahJurusan = Jurusan::count();
+    } else {
+        // Set nilai default jika tidak ada user yang masuk
+        $jumlahGuru = 0;
+        $jumlahMapel = 0;
+        $jumlahKelas = 0;
+        $jumlahJurusan = 0;
+    }
 
 
 

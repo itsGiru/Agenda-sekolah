@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_image',
+        'id_jurusan',
+        'id_kelas',
+        'role',
 
     ];
 
@@ -51,5 +54,10 @@ class User extends Authenticatable
         } else {
             return asset('img/donat.jpg'); // Ganti dengan path gambar default yang sesuai
         }
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 }

@@ -130,6 +130,16 @@ hr:not([size]) {
   height: 1px;
 }
 
+.date-time {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 14px;
+}
+
+
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -3612,32 +3622,32 @@ textarea.form-control-lg {
 
 .btn-warning {
   color: #000;
-  background-color: #406cfb;
-  border-color: #406cfb;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
 }
 .btn-warning:hover {
   color: #000;
-  background-color: #fc7a5d;
-  border-color: #fb7353;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
 }
 .btn-check:focus + .btn-warning, .btn-warning:focus {
   color: #000;
-  background-color: #fc7a5d;
-  border-color: #fb7353;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
   box-shadow: 0 0 0 0.2rem rgba(213, 84, 54, 0.5);
 }
 .btn-check:checked + .btn-warning, .btn-check:active + .btn-warning, .btn-warning:active, .btn-warning.active, .show > .btn-warning.dropdown-toggle {
   color: #000;
-  background-color: #fc8266;
-  border-color: #fb7353;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
 }
 .btn-check:checked + .btn-warning:focus, .btn-check:active + .btn-warning:focus, .btn-warning:active:focus, .btn-warning.active:focus, .show > .btn-warning.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(213, 84, 54, 0.5);
 }
 .btn-warning:disabled, .btn-warning.disabled {
   color: #000;
-  background-color: #406cfb;
-  border-color: #406cfb;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
 }
 
 .btn-danger {
@@ -19383,8 +19393,8 @@ textarea.form-control-lg {
 
 .btn-warning:hover,
 .btn.bg-gradient-warning:hover {
-  background-color: #406cfb;
-  border-color: #406cfb;
+  background-color: #ffbb00;
+  border-color: #ffbb00;
 }
 .btn-warning .btn.bg-outline-warning,
 .btn.bg-gradient-warning .btn.bg-outline-warning {
@@ -19394,8 +19404,8 @@ textarea.form-control-lg {
 .btn.bg-gradient-warning:not(:disabled):not(.disabled).active,
 .btn.bg-gradient-warning:not(:disabled):not(.disabled):active,
 .show > .btn.bg-gradient-warning.dropdown-toggle {
-  color: color-yiq(#406cfb);
-  background-color: #406cfb;
+  color: color-yiq(#ffbb00);
+  background-color: #ffbb00;
 }
 .btn-warning.focus, .btn-warning:focus,
 .btn.bg-gradient-warning.focus,

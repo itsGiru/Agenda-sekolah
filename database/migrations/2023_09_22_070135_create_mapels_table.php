@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_guru')->index()->unsigned()->nullable();
-            $table->foreign('id_guru')->references('id')->on('gurus')->onDelete('set null');
             $table->string('nama_mapel');
             $table->timestamps();
         });

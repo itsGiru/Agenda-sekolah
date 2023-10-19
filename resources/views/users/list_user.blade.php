@@ -7,7 +7,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6>Users</h6>
+                        <h4>Users</h4>
                         <a href="add_user" class="btn btn-success">Tambah User</a>
                     </div>
                 </div>
@@ -23,7 +23,6 @@
                                     <th class="text-center">Profil</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
-                                    <th class="text-center">Kontak</th>
                                     <th class="text-center">Izin</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -33,7 +32,7 @@
                                     <tr>
                                         <td class="text-center">{{ $row->id }}</td>
                                         <td class="text-center">
-                                            <div class="d-flex align-items-center">
+                                            <div class="align-items-center">
                                                 <?php if ($row->profile_image): ?>
                                                     <img src="{{ asset('storage/' . $row->profile_image) }}" class="avatar mr-2" alt="image">
                                                 <?php else: ?>
@@ -42,9 +41,7 @@
                                             </div>                                            
                                         </td>
                                         <td class="text-center">{{ $row->name }}</td>
-                                        <td class="text-center">{{ $row->email }}</td>
-                                        <td class="text-center">
-                                        </td>            
+                                        <td class="text-center">{{ $row->email }}</td>          
                                         <td class="text-center">
                                             @php
                                                 if ($row->role == 1) {
@@ -52,9 +49,9 @@
                                                 } elseif ($row->role == 2) {
                                                     echo 'Ketua murid';
                                                 } elseif ($row->role == 3) {
-                                                    echo 'Walas';
+                                                    echo 'Wali Kelas';
                                                 } elseif ($row->role == 4) {
-                                                    echo 'Kakom';
+                                                    echo 'Kepala Kompetensi';
                                                 } elseif ($row->role == 5) {
                                                     echo 'Belum ada role';
                                                 } elseif ($row->role == 6) {
@@ -65,12 +62,6 @@
                                         <td class="text-center">
                                             <a href="{{ URL::to('/edit_user/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('delete_user/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
-                                            @if ($row->role == 6)
-                                                <form action="{{ URL::to('/change_role/' . $row->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i>&nbsp;Izinkan</button>
-                                                </form>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

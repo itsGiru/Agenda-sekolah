@@ -14,4 +14,14 @@ class Mapel extends Model
         
 
     ];
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'id_mapel');
+    }
+
+
+    public function guruMapel(){
+        return $this->hasMany(GuruMapel::class,'id_guru_mapels');
+    }
 }

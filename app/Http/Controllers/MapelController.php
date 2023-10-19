@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mapel;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class MapelController extends Controller
@@ -12,7 +13,8 @@ class MapelController extends Controller
      */
     public function index()
     {
-        //
+        $mapel=Mapel::all();
+        return view('mapel.index', compact('mapel'));
     }
 
     /**
@@ -28,8 +30,42 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'mapel' => 'required|unique:mapels,nama_mapel',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->route('mapel.index')
+                ->withErrors($validator)
+                ->withInput()
+                ->with('error', 'Gagal menambahkan, Mata Pelajaran sudah ada');
+        }
+    
+        $mapel = Mapel::create([
+            'nama_mapel' => $request->mapel,
+        ]);
+    
+        return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil ditambahkan');
     }
+    
+
+    public function delete($id)
+    {
+        // Temukan hubungan guru-mapel berdasarkan ID
+        $mapel = Mapel::find($id);
+    
+        if (!$mapel) {
+            // Handle jika hubungan guru-mapel tidak ditemukan
+            return redirect()->route('mapel.index')->with('error', 'Mapel Tidak Ditemukan');
+        }
+    
+        // Hapus hubungan guru-mapel
+        $mapel->delete();
+    
+        // Redirect kembali ke halaman edit mapel dengan pesan sukses
+        return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil dihapus');
+    }
+    
 
     /**
      * Display the specified resource.

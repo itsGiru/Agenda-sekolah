@@ -11,32 +11,42 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST">
+                    @foreach ($errors->all() as $error)
+                    {{ $error }}
+                    @endforeach
+
+                    @if(session('error'))
+                    <div id="alert">
+                        @include('components.alert')
+                    </div>
+                    @endif
+                    
+                    <form method="POST" action="{{ route('addUser.perform') }}">
                         @csrf
 
                         <div class="form-group">
                             <label for="nama">Nama</label>
-                            <input type="text" id="nama" name="nama" class="form-control" required>
+                            <input type="text" id="nama" name="name" placeholder="Nama" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                            <input type="email" id="email" name="email" placeholder="Email" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="password-input-container">
-                                <input type="password" id="password" name="password" class="form-control" required>
+                                <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
                                 <span class="password-toggle" onclick="togglePasswordVisibility()"><i id="password-icon"
                                         class="fas fa-eye-slash"></i></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="role">Role</label>
+                            <label for="role">Izin</label>
                             <select id="role" name="role" class="form-control" required>
-                                <option value="99">Pilih role</option>
+                                <option>Pilih Izin</option>
                                 <option value="2">Ketua Murid</option>
                                 <option value="3">Wali Kelas</option>
                                 <option value="4">Kepala Kompetensi</option>
@@ -46,7 +56,7 @@
                         <div class="form-group" id="jurusan" style="display: none;">
                             <label for="jurusan">Jurusan</label>
                             <select id="jurusanSelect" name="id_jurusan" class="form-control" required>
-                                <option value="99">Pilih Jurusan</option>
+                                <option>Pilih Jurusan</option>
                                 @foreach($jurusan as $item)
                                 <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
                                 @endforeach
@@ -55,8 +65,7 @@
 
                         <div class="form-group" id="kelasJurusan" style="display: none;">
                             <label for="kelas">Kelas</label>
-                            <select id="kelasSelect" name="id_kelas" class="form-control" required>
-                            </select>
+                            <select id="kelasSelect" name="id_kelas" class="form-control" required></select>
                         </div>
 
                         <div class="text-center">
@@ -119,7 +128,7 @@
                     // Check if the option matches the selected jurusan or is empty (for default option)
                         var optionElement = document.createElement('option');
                         optionElement.value = option.id;
-                        optionElement.text = option.kelas;
+                        optionElement.text = option.tingkat + ' ' + option.kelas;
                         kelasSelectElement.appendChild(optionElement);
                 });
             })

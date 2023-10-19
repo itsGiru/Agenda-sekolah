@@ -4,12 +4,13 @@
     id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $title }}</li>
-            </ol>
+                <p class="text-white mb-0">
+                    <span id="real-time-clock"></span>
+                </p>
             <h6 class="font-weight-bolder text-white mb-0">{{ $title }}</h6>
+
         </nav>
+
         <ul class="navbar-nav justify-content-end">
 
             <li class="nav-item d-flex align-items-center ms-3" style="margin-right: 20px">
@@ -45,6 +46,30 @@
             </li>
         </ul>
     </div>
-    </div>
 </nav>
 <!-- End Navbar -->
+
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.js"></script>
+
+<script>
+    function updateRealTimeClock() {
+        const realTimeClock = document.getElementById('real-time-clock');
+        const now = new Date();
+
+        // Set bahasa lokal Moment.js ke bahasa Indonesia
+        moment.locale('id');
+        
+        // Format tampilkan waktu dengan hari dan bulan dalam bahasa Indonesia
+        const formattedTime = moment(now).format('dddd, D MMM YYYY-HH:mm');
+        realTimeClock.textContent = formattedTime;
+    }
+
+    updateRealTimeClock(); // Panggil fungsi sekali saat halaman dimuat
+    setInterval(updateRealTimeClock, 1000); // Setiap 1000 ms (1 detik)
+</script>
+
+
+
+@endpush

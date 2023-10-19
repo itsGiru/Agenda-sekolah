@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Profil'])
     <div class="card shadow-lg mx-4 card-profile-bottom">
         <div class="card-body p-3">
             <div class="row gx-4">
@@ -17,13 +17,6 @@
                             {{ auth()->user()->name ?? 'Lorem Ipsum' }}
                         </h5> 
                     </div>
-                </div>
-                <div class="col-auto my-auto">
-                    @if (!empty(auth()->user()->no_wa))
-                        <a type="button" class="btn btn-success btn-sm mt-2"
-                            href="https://wa.me/{{ strpos(auth()->user()->no_wa, '0') === 0 ? '62' . substr(auth()->user()->no_wa, 1) : auth()->user()->no_wa }}"
-                            target="blank_"><i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i></a>
-                    @endif
                 </div>
                 <div class="col-auto my-auto">
                     @if (auth()->user()->profile_image)

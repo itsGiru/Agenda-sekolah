@@ -14,4 +14,8 @@ class Guru extends Model
         
 
     ];
+
+    public function gurumapel(){
+        return $this->hasMany(GuruMapel::class,'id_guru');
+    }
 }

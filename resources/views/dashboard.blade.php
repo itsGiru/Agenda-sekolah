@@ -10,15 +10,36 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jurusan & Kelas</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jurusan</p>
                                     <h5 class="font-weight-bolder">
-                                        {{ $jumlahJurusan }} Jurusan & {{ $jumlahKelas }} Kelas
+                                        {{ $jumlahJurusan }}
                                     </h5>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-default shadow-primary text-center rounded-circle">
+                                    <i class="ni ni-briefcase-24 text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Kelas</p>
+                                    <h5 class="font-weight-bolder">
+                                        {{$jumlahKelas}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-success shadow-success text-center rounded-circle">
+                                    <i class="ni ni-building text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -38,8 +59,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-primary shadow-primary text-center rounded-circle">
+                                    <i class="ni ni-badge text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +80,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-danger shadow-danger text-center rounded-circle">
+                                    <i class="ni ni-book-bookmark text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -68,14 +89,50 @@
                 </div>
             </div>
         </div>
+        
         <div class="row mt-4">
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Sales overview</h6>
+                        <div class="card-header pb-0 pt-3 bg-transparent">
+                            <h4 class="text-capitalize">Selamat Datang, {{ auth()->user()->name ?? 'Undefined' }} !</h4>
+                            <h4 class="text-sm mb-0">
+                                        @if(Auth::user()->role === "1")
+                                            <h5>(Admin)</h5>
+                                        @elseif(Auth::user()->role === "2")
+                                            Ketua Murid
+                                            @php
+                                                $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
+                                                if ($kelas) {
+                                                    echo $kelas->kelas;
+                                                }
+                                            @endphp
+                                        @elseif(Auth::user()->role === "3")
+                                            Wali Kelas
+                                            @php
+                                            $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
+                                            if ($kelas) {
+                                                echo $kelas->kelas;
+                                            }
+                                            @endphp
+                                        @elseif(Auth::user()->role === "4")
+                                            Kepala Kompetensi
+                                            @php
+                                            $kelas = App\Models\Kelas::find(Auth::user()->id_jurusan);
+                                            if ($kelas) {
+                                                echo $kelas->kelas;
+                                            }
+                                        @endphp
+
+                                        @else
+                                            (Peran Tidak Dikenal)
+                                        @endif</b>
+                            </h4>
+                        </div>
+                        
+                        <h6 class="text-capitalize"></h6>
                         <p class="text-sm mb-0">
-                            <i class="fa fa-arrow-up text-success"></i>
-                            <span class="font-weight-bold">4% more</span> in 2021
+                            <span class="font-weight-bold"></span>
                         </p>
                     </div>
                     <div class="card-body p-3">
@@ -89,36 +146,33 @@
                 <div class="card card-carousel overflow-hidden h-100 p-0">
                     <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
                         <div class="carousel-inner border-radius-lg h-100">
-                            <div class="carousel-item h-100 active" style="background-image: url('./img/carousel-1.jpg');
-            background-size: cover;">
+                            <div class="carousel-item h-100 active" style="background-image: url('https://telegra.ph/file/f307b0308f5fcb01db24c.jpg'); background-size: cover;">
                                 <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-camera-compact text-dark opacity-10"></i>
+                                    <div class="text-center border-radius-md mb-3">
                                     </div>
-                                    <h5 class="text-white mb-1">Selamat Datang, {{ auth()->user()->name ?? 'Undefined' }} !</h5>
-                                    <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+                                    <h5 class="text-white mb-1">Selamat Datang di Agenda Harian SMKN 2 Purwakarta, {{ auth()->user()->name ?? 'Undefined' }} !</h5>
+                                    <p>Selamat Menjalani Aktivitas Anda ^_^</p>
                                 </div>
                             </div>
-                            <div class="carousel-item h-100" style="background-image: url('./img/carousel-3.jpg');
-            background-size: cover;">
+                            <div class="carousel-item h-100" style="background-image: url('https://telegra.ph/file/3869eabf8ae3c048a8f30.jpg');background-size: cover;">
                                 <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-trophy text-dark opacity-10"></i>
+                                        <i class="ni ni-book-bookmark text-dark" aria-hidden="true"></i>
                                     </div>
-                                    <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                                    <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+                                    <h4 class="text-white mb-1">TENTANG</h4>
+                                    <p>Agenda Harian SMKN 2 Purwakarta dibuat dan dikembangkan oleh Tim SMKN 2 Purwakarta yang beranggotakan 3 orang Siswa pada saat melaksanakan Praktik Kerja Lapangan di PT. Inovindo Digital Media.</p>
                                 </div>
                             </div>
                         </div>
                         <button class="carousel-control-prev w-5 me-3" type="button"
                             data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
+                            <span class="visually-hidden"></span>
                         </button>
                         <button class="carousel-control-next w-5 me-3" type="button"
                             data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
+                            <span class="visually-hidden"></span>
                         </button>
                     </div>
                 </div>
@@ -172,17 +226,17 @@
         new Chart(ctx1, {
             type: "doughnut",
             data: {
-                labels: ['Jurusan', 'Kelas', 'Guru', 'Mata Pelajaran'],
+                labels: ['Jurusan', 'Kelas', 'Mata Pelajaran', 'Guru'],
                 datasets: [{
-                    label: ['Jurusan', 'Kelas', 'Guru', 'Mata Pelajaran'],
+                    label: ['Jurusan', 'Kelas',  'Mata Pelajaran', 'Guru'],
                     tension: 0.4,
                     borderWidth: 0,
                     pointRadius: 0,
                     borderColor: "#00000f",
                     backgroundColor: ['rgb(66, 188, 245)', 'rgb(49, 238, 49)', 'rgb(235, 5, 5)', 'rgb(255, 192, 203)'],
-                    borderWidth: 3,
+                    borderWidth: 1,
                     fill: true,
-                    data: [Jurusan, Kelas, Guru, Mapel],
+                    data: [Jurusan, Kelas, Mapel ,Guru],
                     maxBarThickness: 6
 
                 }],
@@ -192,7 +246,7 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false,
+                        display: true,
                     }
                 },
                 interaction: {

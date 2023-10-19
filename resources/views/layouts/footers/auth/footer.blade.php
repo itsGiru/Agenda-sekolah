@@ -7,9 +7,8 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>,
-                    made with <i class="fa fa-heart"></i> by
-                    <a href="https://github.com/ShirokamiRyzen" class="font-weight-bold" target="_blank">Fatih Firdaus</a>
-                    for a better web.
+                    Made with <i class="fa fa-heart"></i> by Team SMK Negeri 2 Purwakarta.
+                    Supported by <a href="https://inovindo.co.id/" target="_blank">PT. Inovindo Digital Media.</a>
                 </div>
             </div>
         </div>

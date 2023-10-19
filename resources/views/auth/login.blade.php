@@ -28,7 +28,6 @@
                                 @method('post')
                                 <div class="flex flex-col mb-3">
                                     <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
-                                    @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                 </div>
                                 <div class="flex flex-col mb-3">
                                     <input type="password" name="password" id="password" class="form-control form-control-lg" aria-label="Password" placeholder="Password">
@@ -44,18 +43,12 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                        {{-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                             <p class="mb-1 text-sm mx-auto">
                                 Lupa password? Reset
                                 <a href="{{ route('reset-password') }}" class="text-primary text-gradient font-weight-bold">disini</a>
                             </p>
-                        </div>
-                        <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                            <p class="mb-4 text-sm mx-auto">
-                                Tidak punya akun?
-                                <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Daftar</a>
-                            </p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

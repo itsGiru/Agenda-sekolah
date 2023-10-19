@@ -12,7 +12,13 @@ class Kelas extends Model
     protected $fillable = [
         'kelas',
         'id_jurusan',
+        'tingkat'
         
 
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan');
+    }
 }
