@@ -33,7 +33,7 @@
             @if (!in_array(request()->route()->getName(), ['profile', 'profile-static']))
                 <div class="min-height-300 bg-primary position-absolute w-100"></div>
             @elseif (in_array(request()->route()->getName(), ['profile-static', 'profile']))
-            <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://pbs.twimg.com/media/F184M8uXoAAZeDB?format=jpg&name=4096x4096'); background-position-y: 50%; background-size: cover;">
+            <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://telegra.ph/file/37c2578e79de2f820bfad.jpg'); background-position-y: 50%; background-size: cover;">
                 <span class="mask opacity-4" style="background-color: black"></span>
             </div>            
             @endif

@@ -27,20 +27,20 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">Mata Pelajaran</th>
+                                        @if (Auth::user()->role == 1)
                                         <th class="text-center">Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($mapel as $row)
                                         <tr>
                                             <td class="text-center">{{ $row->nama_mapel}}</td>
+                                            @if (Auth::user()->role == 1)
                                             <td class="text-center">
-                                                @if (Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4)
-                                                <button class="btn btn-sm btn-danger btn-delete" disabled><i class="fas fa-trash"></i></button>
-                                                @else
                                                 <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_mapel/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
-                                                @endif
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

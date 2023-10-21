@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                        <table class="table-bordered table-hover table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-center">Hari</th>

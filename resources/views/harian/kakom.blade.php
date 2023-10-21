@@ -16,6 +16,16 @@
                                 <div class="mb-2">
                                     <input type="date" name="tanggal" class="form-control" style="width: auto;" value="{{ request()->tanggal ?? date('Y-m-d') }}" />
                                 </div>
+                                <div class="col">
+                                    <div class="mb-2">
+                                        <select name="kelas" class="form-control">
+                                            <option value="">Pilih Kelas</option>
+                                            @foreach($kelasCollection as $item)
+                                                <option value="{{ $item->id }}" {{ ($item->id==request()->kelas) ? 'selected' : null }}>{{ $item->tingkat }} {{ $item->kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div>
                                     <button class="btn btn-outline-primary" type="submit">Cari</button>
                                 </div>
@@ -26,6 +36,7 @@
                         </div>
                     </form>
                     <div class="nav-wrapper position-relative end-0 mx-1">
+                      @if (request()->tanggal && request()->kelas)
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                           <li class="nav-item">
                             <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#tab-siswa" role="tab" aria-controls="preview" aria-selected="true">
@@ -47,20 +58,20 @@
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">S, I, A, Dispensasi</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Keterangan</th>
-                                          <th class="text-center text-uppercase text-xs font-weight-bolder">Aksi</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        @foreach ($absenSiswa as $item)
-                                            <tr>
-                                                <td class="text-center">{{ $item->siswa->nama }}</td>
-                                                <td class="text-center">{{ $item->absensi }}</td>
-                                                <td class="text-center">{{ $item->keterangan }}</td>
-                                                <td class="text-center">
-                                                  <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/daily-report/delete_siswa/' . $item->id) }}" id="delete"><i class="fas fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @forelse ($absenSiswa as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $item->siswa->nama }}</td>
+                                            <td class="text-center">{{ $item->absensi }}</td>
+                                            <td class="text-center">{{ $item->keterangan }}</td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                          <td colspan="4" class="text-center">Belum ada Data</td>
+                                        </tr>
+                                        @endforelse
                                       </tbody>
                                     </table>
                                 </div>
@@ -75,28 +86,29 @@
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Mata Pelajaran</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Kehadiran</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Materi / Tugas</th>
-                                          <th class="text-center text-uppercase text-xs font-weight-bolder">Aksi</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        @foreach ($absenGuru as $item)
-                                            <tr>
-                                                <td class="text-center">{{ $item->jadwal->guruMapel->guru->nama }}</td>
-                                                <td class="text-center">{{ $item->jadwal->guruMapel->mapel->nama_mapel }}</td>
-                                                <td class="text-center">{{ $item->keterangan }}</td>
-                                                <td class="text-center">{{ $item->tugasmateri }}</td>
-                                                <td class="text-center">
-                                                  <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/daily-report/delete_guru/' . $item->id) }}" id="delete"><i class="fas fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @forelse ($absenGuru as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $item->jadwal->guruMapel->guru->nama }}</td>
+                                            <td class="text-center">{{ $item->jadwal->guruMapel->mapel->nama_mapel }}</td>
+                                            <td class="text-center">{{ $item->keterangan }}</td>
+                                            <td class="text-center">{{ $item->tugasmateri }}</td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                          <td colspan="4" class="text-center">Belum ada Data</td>
+                                        </tr>
+                                        @endforelse
+                                        
                                       </tbody>
                                     </table>
 
                             </div>
                         </div>
                       </div>
-                      
+                      @endif
                 </div>
                 
             </div>

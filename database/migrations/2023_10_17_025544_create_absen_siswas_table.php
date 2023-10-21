@@ -23,7 +23,7 @@ return new class extends Migration
                 'Alpa',
                 'Dispensasi'
             ]);
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

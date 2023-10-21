@@ -12,13 +12,24 @@
                     <form action="" method="GET">
                         <div class="row justify-content-between align-items-center mb-4 mx-3">
                             <div class="col">
-                                <div id="alert">
-                                  @include('components.alert')
-                                </div>
+                                <div class="col">
+                                    <div class="mb-2">
+                                        <h5>Kelas :</h5>
+                                        <select name="kelas" class="form-control">
+                                            <option value="">Pilih Kelas</option>
+                                            @foreach($kelasCollection as $item)
+                                                <option value="{{ $item->id }}" {{ ($item->id==request()->kelas) ? 'selected' : null }}>{{ $item->tingkat }} {{ $item->kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-outline-primary" type="submit">Cari</button>
+                                    </div>
                             </div>
                         </div>
                     </form>
                     <div class="nav-wrapper position-relative end-0 mx-1">
+                        @if (request()->kelas)
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                           <li class="nav-item">
                             <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#tab-siswa" role="tab" aria-controls="preview" aria-selected="true">
@@ -99,12 +110,14 @@
                                           <td colspan="6" class="text-center fs-5">Belum ada Data</td>
                                         </tr>
                                         @endforelse
+                                        
                                       </tbody>
                                     </table>
 
                             </div>
                         </div>
                       </div>
+                      @endif
                 </div>
                 
             </div>

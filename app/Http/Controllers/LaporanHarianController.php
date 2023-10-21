@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\AbsenGuru;
 use App\Models\AbsenSiswa;
 use Illuminate\Http\Request;
@@ -26,6 +27,27 @@ class LaporanHarianController extends Controller
             $absenGuru=$absenGuru->whereDate('created_at', now())->get();
         }
         return view('harian.index', compact('absenSiswa', 'absenGuru'));
+    }
+
+    public function kakom()
+    {
+        $kelasCollection = Kelas::where('id_jurusan', Auth::user()->id_jurusan)->get();
+
+        $absenSiswa=AbsenSiswa::with(['siswa' =>function($query){
+            $query->where('id_kelas', request()->kelas);
+        }]);
+
+        $absenGuru=AbsenGuru::with(['jadwal' =>function($query){
+            $query->where('id_kelas', request()->kelas);
+        }]);
+        if (request()->tanggal !='') {
+            $absenSiswa=$absenSiswa->whereDate('created_at', request()->tanggal)->get();
+            $absenGuru=$absenGuru->whereDate('created_at', request()->tanggal)->get();
+        } else {
+            $absenSiswa=$absenSiswa->whereDate('created_at', now())->get();
+            $absenGuru=$absenGuru->whereDate('created_at', now())->get();
+        }
+        return view('harian.kakom', compact('kelasCollection', 'absenSiswa', 'absenGuru'));
     }
 
 

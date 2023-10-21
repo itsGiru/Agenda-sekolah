@@ -17,10 +17,12 @@
                         }
                         @endphp
                     </h4>
-                    @if (Auth::user()->role == 3 )
-                    <a href="add_siswa" class="btn btn-success">Tambah Siswa</a>
-                    @endif
                     </div>
+                    @if (Auth::user()->role == 3 )
+                    <div>
+                        <a href="add_siswa" class="btn btn-success">Tambah Siswa</a>
+                    </div>
+                    @endif
                     @if (Auth::user()->role == 1)
                     <div class="mb-2">
                         <label for="filter_kelas">Filter Kelas:</label>
@@ -44,7 +46,9 @@
                                     <th class="text-center">No. Absen</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Jenis Kelamin</th>
+                                    @if (Auth::user()->role == 2 || Auth::user()->role == 3)
                                     <th class="text-center">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,9 +58,11 @@
                                     <td class="text-center">{{ $row->no_absen }}</td>
                                         <td class="text-center">{{ $row->nama }}</td>
                                         <td class="text-center">{{ $row->jenis_kelamin }}</td>
+                                        @if (Auth::user()->role == 2 || Auth::user()->role == 3)
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" onclick="detailSiswa({{ $row->id }})" data-bs-target="#exampleModal"><i class="fas fa-eye"></i></button>
-                                    @if (Auth::user()->role == 3)
+                                        @endif
+                                        @if (Auth::user()->role == 3)
                                             <a href="{{ route('list-siswa.edit_siswa' , $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_siswa/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
                                         </td>
@@ -80,10 +86,12 @@
               </button>
             </div>
             <div class="modal-body">
+            <ul class="list-unstyled">
                 <li>Sakit: <span id="siswa-sakit"></span></li>
                 <li>Izin: <span id="siswa-izin"></span></li>
                 <li>Alpa: <span id="siswa-alpa"></span></li>
                 <li>Dispensasi: <span id="siswa-dispensasi"></span></li>
+            </ul>
             </div>
           </div>
         </div>

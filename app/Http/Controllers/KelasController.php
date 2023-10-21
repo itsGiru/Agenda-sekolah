@@ -15,7 +15,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas=Kelas::all();
+        $kelas=Kelas::has('jurusan')->get();
         $jurusan=Jurusan::all();
         return view('kelas.index', compact('kelas', 'jurusan'));
     }

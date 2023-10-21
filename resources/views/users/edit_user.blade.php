@@ -11,6 +11,14 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit User untuk {{ $edit->name }}</h3>
                     </div>
+                    @foreach ($errors->all() as $error)
+                    {{ $error }}
+                    @endforeach
+                    @if(session('error'))
+                    <div id="alert">
+                        @include('components.alert')
+                    </div>
+                    @endif
                     <form role="form" action="{{ URL::to('/update_user/' . $edit->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf

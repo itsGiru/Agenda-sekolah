@@ -12,7 +12,9 @@ class AbsenSiswaController extends Controller
 {
     public function index()
     {
-        $siswa=Siswa::where('id_kelas', Auth::user()->id_kelas)->where('lulus', 0)->get();
+        $siswa=Siswa::where('id_kelas', Auth::user()->id_kelas)->whereDoesntHave('absen' , function($query){
+            $query->whereDay('created_at',  now()->day);
+        })->where('lulus', 0)->get();
         $keterangan= [
             'Sakit',
             'Izin',
@@ -20,7 +22,7 @@ class AbsenSiswaController extends Controller
             'Dispensasi'
         ];
         
-        return view('absen_siswa.index', compact('siswa', 'keterangan'));
+        return view('absen_siswa.iindex', compact('siswa', 'keterangan'));
     }
 
     public function store(Request $request)
@@ -30,8 +32,11 @@ class AbsenSiswaController extends Controller
             'absensi' => 'required'
         ]);
         $siswa=Siswa::where('id', $request->nama)->first();
+        $checkAbsen=AbsenSiswa::where('id_siswa', $siswa->id)->whereDay('created_at', now()->day)->count();
+        if ($checkAbsen==0) {
 
-        $absen=AbsenSiswa::create([
+
+        AbsenSiswa::create([
             'id_siswa'=>$siswa->id,
             'id_kelas'=>$siswa->id_kelas,
             'absensi'=>$request->absensi,
@@ -39,6 +44,9 @@ class AbsenSiswaController extends Controller
         ]);
 
         return redirect()->route('absen_siswa.index')->with('success', 'Berhasil menambahkan data kehadiran Siswa');
+    } else {
+        return redirect()->back()->with('error', 'Data kehadiran Siswa tersebut sudah ada');
+    }
 
     }
 

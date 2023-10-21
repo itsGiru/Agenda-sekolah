@@ -9,6 +9,9 @@
                 <div class="card-header" style="background-color:  rgb(240, 240, 240)">
                     <h4>Kelola Jadwal</h4>
                 </div>
+                <div id="alert">
+                    @include('components.alert')
+                </div>
 
                 <div class="card-body">
                     @foreach ($errors->all() as $error)

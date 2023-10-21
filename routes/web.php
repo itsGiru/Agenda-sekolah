@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('delete_jadwal/{id}', [JadwalController::class, 'delete'])->name('jadwal.delete')->middleware('checkUserRole:3');
 
 	//Mata Pelajaran
-	Route::get('/mapel',  [MapelController::class, 'index'])->name('mapel.index')->middleware('checkUserRole:1,2,3');
+	Route::get('/mapel',  [MapelController::class, 'index'])->name('mapel.index')->middleware('checkUserRole:1');
 	Route::post('/mapel', [MapelController::class, 'store'])->name('mapel.store')->middleware('checkUserRole:1');
 	Route::get('delete_mapel/{id}', [MapelController::class, 'delete'])->name('mapel.delete')->middleware('checkUserRole:1');
 
@@ -131,14 +131,18 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('add_user', [App\Http\Controllers\UsermanagementController::class, 'AddUser'])->name('users.add-user')->middleware('checkUserRole:1');
 	Route::post('add_user', [App\Http\Controllers\UsermanagementController::class, 'store'])->name('addUser.perform')->middleware('checkUserRole:1');
 
-		//Harian
-		Route::get('/daily-report',  [LaporanHarianController::class, 'index'])->name('harian.index')->middleware('checkUserRole:2,3,4');
-		Route::get('/daily-report/delete_siswa/{id}', [LaporanHarianController::class, 'deleteSiswa'])->name('harian.delete')->middleware('checkUserRole:2');
-		Route::get('/daily-report/delete_guru/{id}', [LaporanHarianController::class, 'deleteGuru'])->name('harian.delete')->middleware('checkUserRole:2');
+	//Harian
+	Route::get('/daily-report',  [LaporanHarianController::class, 'index'])->name('harian.index')->middleware('checkUserRole:2,3');
+	Route::get('/daily-report/delete_siswa/{id}', [LaporanHarianController::class, 'deleteSiswa'])->name('harian.delete')->middleware('checkUserRole:2');
+	Route::get('/daily-report/delete_guru/{id}', [LaporanHarianController::class, 'deleteGuru'])->name('harian.delete')->middleware('checkUserRole:2');
+	Route::get('/daily-report/kakom',  [LaporanHarianController::class, 'kakom'])->name('harian.kakom')->middleware('checkUserRole:4');
 	
-		//Bulanan
-		Route::get('/monthly-report',  [LaporanBulananController::class, 'index'])->name('bulanan.index')->middleware('checkUserRole:2,3,4');
-		Route::get('/monthly-report/detail/{bulan}',  [LaporanBulananController::class, 'show'])->name('bulanan.show')->middleware('checkUserRole:2,3,4');
+	//Bulanan
+	Route::get('/monthly-report',  [LaporanBulananController::class, 'index'])->name('bulanan.index')->middleware('checkUserRole:2,3,4');
+	Route::get('/monthly-report/detail/{bulan}',  [LaporanBulananController::class, 'show'])->name('bulanan.show')->middleware('checkUserRole:2,3,4');
+	Route::get('/monthly-report/kakom/{bulan}',  [LaporanBulananController::class, 'kakom'])->name('bulanan.kakom')->middleware('checkUserRole:4');
+	Route::get('/monthly-report/export/{bulan}',  [LaporanBulananController::class, 'cetak'])->name('bulanan.cetak')->middleware('checkUserRole:2,3');
+	
 
 
 

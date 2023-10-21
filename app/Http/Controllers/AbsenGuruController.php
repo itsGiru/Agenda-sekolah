@@ -12,13 +12,15 @@ class AbsenGuruController extends Controller
 {
     public function index()
     {
-        $jadwal=Jadwal::where('id_kelas', Auth::user()->id_kelas)->where('hari', date('D'))->get();
+        $jadwal=Jadwal::where('id_kelas', Auth::user()->id_kelas)->where('hari', date('D'))->whereDoesntHave('absen', function($query){
+            $query->whereDay('created_at',  now()->day);
+        })->get();
         $keterangan=[
             'Hadir',
             'Penugasan',
             'Tidak Hadir'
         ];
-        return view('absen_guru.index', compact('jadwal', 'keterangan'));
+        return view('absen_guru.iindex', compact('jadwal', 'keterangan'));
     }
 
     public function store(Request $request)

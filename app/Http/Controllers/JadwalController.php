@@ -34,17 +34,34 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'hari'=>'required',
-            'mapel'=>'required',
+            'hari' => 'required',
+            'mapel' => 'required',
         ]);
-        $jadwal=Jadwal::create([
-            'hari'=>$request->hari,
-            'id_guru_mapels'=>$request->mapel,
-            'id_kelas'=>Auth()->user()->id_kelas
+    
+        $hari = $request->hari;
+        $id_kelas = Auth::user()->id_kelas;
+        $id_guru_mapel = $request->mapel;
+    
+        // Cek apakah sudah ada jadwal untuk mata pelajaran yang sama pada hari yang sama
+        $existingJadwal = Jadwal::where('hari', $hari)
+            ->where('id_kelas', $id_kelas)
+            ->where('id_guru_mapels', $id_guru_mapel)
+            ->first();
+    
+        if ($existingJadwal) {
+            return redirect()->route('jadwal.create')->with('error', 'Mata pelajaran ini sudah ada di hari yang sama.');
+        }
+    
+        // Jika tidak ada jadwal yang sama, maka tambahkan jadwal baru
+        $jadwal = Jadwal::create([
+            'hari' => $hari,
+            'id_guru_mapels' => $id_guru_mapel,
+            'id_kelas' => $id_kelas,
         ]);
-
+    
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan');
     }
+    
 
     public function edit(int $id)
     {

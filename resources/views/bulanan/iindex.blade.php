@@ -12,12 +12,6 @@
                 <form action="" method="GET">
                     <div class="row justify-content-between align-items-center mb-4 mx-3">
                         <div class="col">
-                            <div class="mb-2">
-                                <input type="date" name="tanggal" class="form-control" style="width: auto;" value="{{ now() }}" />
-                            </div>
-                            <div>
-                                <button class="btn btn-outline-primary" type="submit">Cari</button>
-                            </div>
                             <div id="alert">
                                 @include('components.alert')
                             </div>
@@ -37,7 +31,12 @@
                           <tr>
                             <td class="text-center">{{ \Carbon\Carbon::parse('01-'.$item->new_date)->isoFormat('MMMM Y') }}</td>
                             <td class="text-center">
-                              <a href="{{ route('bulanan.show', $item->new_date) }}" class="btn btn-warning">Detail</a>
+                                @if (Auth::user()->role == 4)
+                                <a href="{{ route('bulanan.kakom', $item->new_date) }}" class="btn btn-warning">Detail</a>
+                                @else
+                                <a href="{{ route('bulanan.show', $item->new_date) }}" class="btn btn-warning">Detail</a>
+                                <a href="{{ route('bulanan.cetak', $item->new_date) }}" class="btn btn-success">Ekspor</a>
+                                @endif
                             </td>
                           </tr>
                           @endforeach

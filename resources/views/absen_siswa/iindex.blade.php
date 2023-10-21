@@ -42,7 +42,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="keterangan-form" style="display: none">
                             <label for="exampleFormControlTextarea1">Keterangan</label>
                             <textarea name="keterangan" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
@@ -57,3 +57,20 @@
 </div>
 
 @endsection
+
+@push('js')
+    <script>
+            var kehadiranDropdown = document.querySelector('select[name="absensi"]');
+
+            var ketForm = document.getElementById('keterangan-form');
+
+            kehadiranDropdown.addEventListener('change', function () {
+        console.log(kehadiranDropdown);
+        if (kehadiranDropdown.value === 'Izin' || kehadiranDropdown.value === 'Sakit' || kehadiranDropdown.value === 'Dispensasi') { 
+            ketForm.style.display = 'block';
+        } else {
+            ketForm.style.display = 'none';
+        }
+    });
+    </script>
+@endpush

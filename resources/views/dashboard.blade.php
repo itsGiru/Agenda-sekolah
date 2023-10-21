@@ -104,7 +104,7 @@
                                             @php
                                                 $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
                                                 if ($kelas) {
-                                                    echo $kelas->kelas;
+                                                    echo $kelas->tingkat, " ", $kelas->kelas;
                                                 }
                                             @endphp
                                         @elseif(Auth::user()->role === "3")
@@ -112,7 +112,7 @@
                                             @php
                                             $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
                                             if ($kelas) {
-                                                echo $kelas->kelas;
+                                                echo $kelas->tingkat, " ", $kelas->kelas;
                                             }
                                             @endphp
                                         @elseif(Auth::user()->role === "4")
@@ -120,7 +120,7 @@
                                             @php
                                             $kelas = App\Models\Kelas::find(Auth::user()->id_jurusan);
                                             if ($kelas) {
-                                                echo $kelas->kelas;
+                                                echo  "Jurusan ", $kelas->jurusan->jurusan;
                                             }
                                         @endphp
 

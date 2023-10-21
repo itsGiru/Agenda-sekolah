@@ -127,7 +127,9 @@ class UsermanagementController extends Controller
             ];
     
             if (auth()->user()->role == 1) {
-                $rules['password'] = 'required|min:6|max:255';
+                if ($request->filled('password') && auth()->user()->role == 1) {
+                    $rules['password'] = 'required|min:6|max:255';
+                }
             }
     
             // Validate the request
@@ -178,13 +180,42 @@ class UsermanagementController extends Controller
             $data['password'] = bcrypt($request->password);
         }
     
-        // Update the user with the new data
-        $update = User::where('id', $id)->update($data);
-    
-        if ($update !== false) {
-            return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!');
+        if($existingUser->role=='1'){
+            $update = User::where('id', $id)->update($data);
+            return redirect()->route('users.index')->with('success', 'Admin Berhasil Diupdate!');
         } else {
-            return redirect()->route('users.index')->with('error', 'Oops, ada sesuatu yang Salah!');
+            if(request()->role=='2'){
+                $check=User::where('id_kelas', request()->id_kelas)->where('role', '2')->where('id', '!=', $existingUser->id)->count();
+                if ($check==0) {
+                    // Update the user with the new data
+                    $update = User::where('id', $id)->update($data);
+                    return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!');
+
+                } else {
+                    return redirect()->back()->with('error', 'User Berhasil Diupdate!');
+                }
+            } elseif(request()->role=='3'){
+                $check=User::where('id_kelas', request()->id_kelas)->where('role', '3')->where('id', '!=', $existingUser->id)->count();
+                if ($check==0) {
+                    // Update the user with the new data
+                    $update = User::where('id', $id)->update($data);
+                    return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!');
+
+                } else {
+                    return redirect()->back()->with('error', 'Wali Kelas di Kelas tersebut sudah ada');
+                }
+
+            } elseif(request()->role=='4'){
+                $check=User::where('id_jurusan', request()->id_jurusan)->where('role', '4')->where('id', '!=', $existingUser->id)->count();
+                if ($check==0) {
+                    // Update the user with the new data
+                    $update = User::where('id', $id)->update($data);
+                    return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!.');
+
+                } else {
+                    return redirect()->back()->with('error', 'Kepala Kompetensi di Jurusan tersebut sudah ada');
+                }
+            }
         }
     }
     

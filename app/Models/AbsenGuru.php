@@ -15,4 +15,8 @@ class AbsenGuru extends Model
     public function jadwal(){
         return $this->belongsTo(Jadwal::class,'id_jadwal');
     }
+
+    public function guru(){
+        return $this->belongsTo(Guru::class,'id_guru');
+    }
 }

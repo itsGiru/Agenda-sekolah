@@ -39,5 +39,9 @@ class Jadwal extends Model
     return $this->belongsTo(Guru::class, 'id_guru');
 }
 
+public function absen()
+{
+    return $this->hasMany(AbsenGuru::class, 'id_jadwal');
+}
 
 }

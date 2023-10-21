@@ -66,9 +66,11 @@
                 </a>
             </li>
     @endif
+    @if (Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">List</h6>
             </li>
+    @endif
     @if (Auth::user()->role == 1)
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'list-walas.index' ? 'active' : '' }}" href="{{ route('list-walas.index') }}">
@@ -104,7 +106,7 @@
                     <span class="nav-link-text ms-1">Siswa</span>
                 </a>
             </li>
-        @if (Auth::user()->role == 1 || Auth::user()->role == 3)
+        @if (Auth::user()->role == 1)
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'mapel.index' ? 'active' : '' }}" href="{{ route('mapel.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -152,7 +154,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4)
+            @if (Auth::user()->role == 2 || Auth::user()->role == 3)
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'harian.index' ? 'active' : '' }}" href="{{ route('harian.index') }}">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -169,6 +171,24 @@
                         <span class="nav-link-text ms-1">List Laporan Bulanan</span>
                     </a>
                 </li>
+            @endif
+            @if (Auth::user()->role == 4)
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'harian.kakom' ? 'active' : '' }}" href="{{ route('harian.kakom') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-calendar-check text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">List Laporan Harian</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'bulanan.index' ? 'active' : '' }} {{ Route::currentRouteName() == 'bulanan.kakom' ? 'active' : '' }}" href="{{ route('bulanan.index') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-book text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">List Laporan Bulanan</span>
+                </a>
+            </li>
             @endif
         </ul>
     </div>
