@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Ketua Murid</h6>
+                    <h4>Ketua Murid</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive p-0">

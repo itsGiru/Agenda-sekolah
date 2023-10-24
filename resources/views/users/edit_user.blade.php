@@ -68,10 +68,10 @@
                             <div class="form-group" id="kelasJurusan" style="{{ ($edit->role==4)?'display:none':null }}">
                                 <label for="kelas">Kelas</label>
                                 <select id="kelasSelect" name="id_kelas" class="form-control">
-                                    @foreach($kelas as $item)
+                                    {{-- @foreach($kelas as $item) --}}
                                         <option></option>
-                                        <option value="{{ $item->id }}" data-jurusan="{{ $item->id_jurusan }}" {{ $item->id == $edit->id_kelas ? 'selected' : '' }}>{{ $item->tingkat }} {{ $item->kelas }}</option>
-                                    @endforeach
+                                        <option value="{{ $edit->kelas->id }}" selected>{{ $edit->kelas->tingkat }} {{ $edit->kelas->kelas }}</option>
+                                    {{-- @endforeach --}}
                                 </select>
                             </div>
                             @endif
@@ -171,7 +171,7 @@ function fillKelasOptions(selectedJurusanId) {
 var selectedJurusanId = document.getElementById('jurusanSelect').value;
 
 // Panggil fungsi untuk mengisi opsi kelas sesuai dengan jurusan terpilih atau default
-fillKelasOptions(selectedJurusanId);
+// fillKelasOptions(selectedJurusanId);
 
 // Event listener untuk perubahan jurusan
 document.getElementById('jurusanSelect').addEventListener('change', function () {

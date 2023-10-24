@@ -14,8 +14,13 @@ class JurusanSeeder extends Seeder
      */
     public function run(): void
     {
-        Jurusan::create([
-            'jurusan' => 'Rekayasa Perangkat Lunak',
+        Jurusan::insert([
+            ['jurusan' => 'Rekayasa Perangkat Lunak'],
+            ['jurusan' => 'Teknik Komputer dan Jaringan'],
+            ['jurusan' => 'Otomatisasi Tata Kelola Perkantoran'],
+            ['jurusan' => 'Bisnis Daring dan Pemasaran'],
+            ['jurusan' => 'Akuntansi Keuangan Lembaga'],
+            ['jurusan' => 'Tata Busana'],
         ]);
     }
 }

@@ -28,8 +28,10 @@ class GuruController extends Controller
     {
 
         $this->validate($request, [
-            'nama'=>'required',
+            'nama'=>'required|unique:gurus',
             'mapel'=>'required'
+        ],[
+            'nama.unique' => 'Nama Guru tersebut sudah ada'
         ]);
         $guru=Guru::create([
             'nama'=>$request->nama

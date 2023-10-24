@@ -31,17 +31,28 @@ class LaporanBulananController extends Controller
         $date=explode('-', $bulan);
         $date_bulan=$date[0];
         $date_tahun=$date[1];
-        $absenSiswas = AbsenSiswa::with('siswa')
+        $absenSiswas = AbsenSiswa::whereHas('siswa', function ($query) {
+            $query->where('id_kelas', Auth::user()->id_kelas);
+        })
         ->whereMonth('created_at', $date_bulan)
         ->whereYear('created_at', $date_tahun)
         ->groupBy('id_siswa')
         ->get();
         $absenGurus = AbsenGuru::join('jadwals', 'absen_gurus.id_jadwal', '=', 'jadwals.id')
-        ->select('absen_gurus.*', 'jadwals.id_guru_mapels')
+        ->join('guru_mapels', 'jadwals.id_guru_mapels', '=', 'guru_mapels.id')
+        ->whereHas('jadwal', function ($query) {
+            $query->where('id_kelas', Auth::user()->id_kelas);
+        })
         ->whereMonth('absen_gurus.created_at', $date_bulan)
         ->whereYear('absen_gurus.created_at', $date_tahun)
-        ->groupBy('jadwals.id_guru_mapels')
+        ->groupBy('guru_mapels.id')
         ->get();
+        // $absenGurus = AbsenGuru::join('jadwals', 'absen_gurus.id_jadwal', '=', 'jadwals.id')
+        // ->select('absen_gurus.*', 'jadwals.id_guru_mapels')
+        // ->whereMonth('absen_gurus.created_at', $date_bulan)
+        // ->whereYear('absen_gurus.created_at', $date_tahun)
+        // ->groupBy('jadwals.id_guru_mapels')
+        // ->get();
 
         
     
@@ -130,17 +141,28 @@ class LaporanBulananController extends Controller
 
     public function cetak($bulan)
     {
-        $kelas = Auth::user()->id_kelas;
+        $idKelas = Auth::user()->id_kelas;
+        $kelas = Kelas::find($idKelas);
         $date=explode('-', $bulan);
         $date_bulan=$date[0];
         $date_tahun=$date[1];
-        $absenSiswas = AbsenSiswa::with('siswa')
+        $namaBulanIndonesia = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        $absenSiswas = AbsenSiswa::whereHas('siswa', function ($query) {
+            $query->where('id_kelas', Auth::user()->id_kelas);
+        })
         ->whereMonth('created_at', $date_bulan)
         ->whereYear('created_at', $date_tahun)
         ->groupBy('id_siswa')
         ->get();
         $absenGurus = AbsenGuru::join('jadwals', 'absen_gurus.id_jadwal', '=', 'jadwals.id')
+        ->join('guru_mapels', 'jadwals.id_guru_mapels', '=', 'guru_mapels.id')
         ->select('absen_gurus.*', 'jadwals.id_guru_mapels')
+        ->whereHas('jadwal', function ($query) {
+            $query->where('id_kelas', Auth::user()->id_kelas);
+        })
         ->whereMonth('absen_gurus.created_at', $date_bulan)
         ->whereYear('absen_gurus.created_at', $date_tahun)
         ->groupBy('jadwals.id_guru_mapels')
@@ -179,7 +201,10 @@ class LaporanBulananController extends Controller
             'absenGurus' => $absenGurus,
             'kelas' => $kelas,
         ]);
-        return $pdf->download($bulan.'.pdf');
+        $namaBulan = $namaBulanIndonesia[$date_bulan - 1];
+        $filename = "Laporan Bulanan $namaBulan {$kelas->tingkat} {$kelas->kelas}.pdf";
+    
+        return $pdf->download($filename);
 
     }
 }

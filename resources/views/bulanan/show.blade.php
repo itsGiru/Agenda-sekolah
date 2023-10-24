@@ -6,7 +6,16 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h3>Detail Laporan Bulan {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM') }}</h3>
+                    <h3>Detail Laporan Bulan {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM ') }}
+                      @php
+                      $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
+                      if ($kelas) {
+                          echo $kelas->tingkat;
+                          echo " ";
+                          echo $kelas->kelas;
+                      }
+                      @endphp
+                    </h3>
                 </div>
                 <div class="card-body p-0">
                     <form action="" method="GET">

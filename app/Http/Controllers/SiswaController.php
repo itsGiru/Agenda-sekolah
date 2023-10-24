@@ -16,18 +16,22 @@ class SiswaController extends Controller
 {
     public function SiswaList(Request $request)
     {
-        $list = Siswa::belumLulus()->get();
 
         $list_kelas = Kelas::all(); // Mengambil semua data kelas
 
         if (Auth::user()->role == 1) {
-            $list = Siswa::with('kelas')->belumLulus()->get();
+            $list = Siswa::with('kelas')
+            ->belumLulus()
+            ->orderBy('no_absen', 'asc')
+            ->get();
             return view('list_siswa.list_siswa', compact('list', 'list_kelas'));
         } else {
 
             $kelasWaliKelas = Auth::user()->id_kelas;
             $list = Siswa::with('kelas')
-            ->where('id_kelas', $kelasWaliKelas)->belumLulus()
+            ->where('id_kelas', $kelasWaliKelas)
+            ->belumLulus()
+            ->orderBy('no_absen', 'asc')
             ->get();
             return view('list_siswa.list_siswa', compact('list'));
         }

@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Wali Kelas</h6>
+                    <h4>List Wali Kelas</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive p-0">

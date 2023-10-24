@@ -12,20 +12,24 @@ class LaporanHarianController extends Controller
 {
     public function index()
     {
-        $absenSiswa=AbsenSiswa::with(['siswa' =>function($query){
-            $query->where('id_kelas', Auth::user()->id_kelas);
-        }]);
+        $kelasCollection = Kelas::where('id_jurusan', Auth::user()->id_jurusan)->pluck('id', 'id');
 
-        $absenGuru=AbsenGuru::with(['jadwal' =>function($query){
+        $absenSiswa = AbsenSiswa::whereHas('siswa', function ($query) {
             $query->where('id_kelas', Auth::user()->id_kelas);
-        }]);
-        if (request()->tanggal !='') {
-            $absenSiswa=$absenSiswa->whereDate('created_at', request()->tanggal)->get();
-            $absenGuru=$absenGuru->whereDate('created_at', request()->tanggal)->get();
+        });
+
+        $absenGuru = AbsenGuru::whereHas('jadwal', function ($query) {
+            $query->where('id_kelas', Auth::user()->id_kelas);
+        });
+
+        if (request()->tanggal != '') {
+            $absenSiswa = $absenSiswa->whereDate('created_at', request()->tanggal)->get();
+            $absenGuru = $absenGuru->whereDate('created_at', request()->tanggal)->get();
         } else {
-            $absenSiswa=$absenSiswa->whereDate('created_at', now())->get();
-            $absenGuru=$absenGuru->whereDate('created_at', now())->get();
+            $absenSiswa = $absenSiswa->whereDate('created_at', now())->get();
+            $absenGuru = $absenGuru->whereDate('created_at', now())->get();
         }
+
         return view('harian.index', compact('absenSiswa', 'absenGuru'));
     }
 
@@ -33,19 +37,20 @@ class LaporanHarianController extends Controller
     {
         $kelasCollection = Kelas::where('id_jurusan', Auth::user()->id_jurusan)->get();
 
-        $absenSiswa=AbsenSiswa::with(['siswa' =>function($query){
+        $absenSiswa=AbsenSiswa::whereHas('siswa', function($query){
             $query->where('id_kelas', request()->kelas);
-        }]);
+        });
 
-        $absenGuru=AbsenGuru::with(['jadwal' =>function($query){
+        $absenGuru = AbsenGuru::whereHas('jadwal', function ($query) {
             $query->where('id_kelas', request()->kelas);
-        }]);
-        if (request()->tanggal !='') {
-            $absenSiswa=$absenSiswa->whereDate('created_at', request()->tanggal)->get();
-            $absenGuru=$absenGuru->whereDate('created_at', request()->tanggal)->get();
+        });
+
+        if (request()->tanggal != '') {
+            $absenSiswa = $absenSiswa->whereDate('created_at', request()->tanggal)->get();
+            $absenGuru = $absenGuru->whereDate('created_at', request()->tanggal)->get();
         } else {
-            $absenSiswa=$absenSiswa->whereDate('created_at', now())->get();
-            $absenGuru=$absenGuru->whereDate('created_at', now())->get();
+            $absenSiswa = $absenSiswa->whereDate('created_at', now())->get();
+            $absenGuru = $absenGuru->whereDate('created_at', now())->get();
         }
         return view('harian.kakom', compact('kelasCollection', 'absenSiswa', 'absenGuru'));
     }
@@ -67,7 +72,7 @@ class LaporanHarianController extends Controller
     
         $absenSiswa->delete();
     
-        return redirect()->back()->with('success', 'Kehadiran Siswa berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data Kehadiran Siswa berhasil dihapus.');
     }
 
     public function deleteGuru($id)
@@ -76,6 +81,6 @@ class LaporanHarianController extends Controller
     
         $absenGuru->delete();
     
-        return redirect()->back()->with('success', 'Kehadiran Guru berhasil dihapus.');   
+        return redirect()->back()->with('success', 'Data Kehadiran Guru berhasil dihapus.');   
     }
 }

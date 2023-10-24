@@ -87,7 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('siswa_detail/{id}', [SiswaController::class, 'detail'])->name('siswa.detail')->middleware('checkUserRole:2,3');
 	
 	//Guru
-	Route::get('guru', [App\Http\Controllers\GuruController::class, 'GuruList'])->name('list-guru.index')->middleware('checkUserRole:1,2,3,4');
+	Route::get('guru', [App\Http\Controllers\GuruController::class, 'GuruList'])->name('list-guru.index')->middleware('checkUserRole:1,3');
 	Route::get('add_guru', [App\Http\Controllers\GuruController::class, 'AddGuru'])->name('list-guru.add_guru')->middleware('checkUserRole:1');
 	Route::post('add_guru', [App\Http\Controllers\GuruController::class, 'store'])->name('list-guru.store_guru')->middleware('checkUserRole:1');
 	Route::get('edit_guru/{id}', [App\Http\Controllers\GuruController::class, 'EditGuru'])->name('list-guru.edit_guru')->middleware('checkUserRole:1');
@@ -123,18 +123,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//user management
 	Route::get('user_management', [App\Http\Controllers\UsermanagementController::class, 'UserList'])->name('users.index')->middleware('checkUserRole:1');
-	Route::get('/edit_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserEdit'])->middleware('checkUserRole:1');
-	Route::post('/update_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserUpdate'])->middleware('checkUserRole:1');
+	Route::get('/edit_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserEdit'])->name('users.edit')->middleware('checkUserRole:1');
+	Route::post('/update_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserUpdate'])->name('users.update')->middleware('checkUserRole:1');
 	Route::post('/change_role/{id}', [App\Http\Controllers\UsermanagementController::class, 'changeRole'])->name('user.changeRole')->middleware('checkUserRole:1');
-	Route::get('/delete_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserDelete'])->middleware('checkUserRole:1');
+	Route::get('/delete_user/{id}', [App\Http\Controllers\UsermanagementController::class, 'UserDelete'])->name('users.delete')->middleware('checkUserRole:1');
 	Route::get('jurusankelas/{id}', [App\Http\Controllers\UsermanagementController::class, 'JurusanKelas']);
 	Route::get('add_user', [App\Http\Controllers\UsermanagementController::class, 'AddUser'])->name('users.add-user')->middleware('checkUserRole:1');
 	Route::post('add_user', [App\Http\Controllers\UsermanagementController::class, 'store'])->name('addUser.perform')->middleware('checkUserRole:1');
 
 	//Harian
 	Route::get('/daily-report',  [LaporanHarianController::class, 'index'])->name('harian.index')->middleware('checkUserRole:2,3');
-	Route::get('/daily-report/delete_siswa/{id}', [LaporanHarianController::class, 'deleteSiswa'])->name('harian.delete')->middleware('checkUserRole:2');
-	Route::get('/daily-report/delete_guru/{id}', [LaporanHarianController::class, 'deleteGuru'])->name('harian.delete')->middleware('checkUserRole:2');
+	Route::get('/daily-report/delete_siswa/{id}', [LaporanHarianController::class, 'deleteSiswa'])->name('harian.delete.siswa')->middleware('checkUserRole:2');
+	Route::get('/daily-report/delete_guru/{id}', [LaporanHarianController::class, 'deleteGuru'])->name('harian.delete.guru')->middleware('checkUserRole:2');
 	Route::get('/daily-report/kakom',  [LaporanHarianController::class, 'kakom'])->name('harian.kakom')->middleware('checkUserRole:4');
 	
 	//Bulanan

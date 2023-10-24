@@ -105,7 +105,7 @@ class UsermanagementController extends Controller
 
     public function UserEdit($id)
     {
-        $edit = DB::table('users')->where('id', $id)->first();
+        $edit = User::where('id', $id)->first();
         $kelas = Kelas::all(); // Retrieve all kelas data
         $jurusan = Jurusan::all(); // Retrieve all jurusan data
     

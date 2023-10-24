@@ -38,7 +38,7 @@
                                             <td class="text-center">{{ $row->nama_mapel}}</td>
                                             @if (Auth::user()->role == 1)
                                             <td class="text-center">
-                                                <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_mapel/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                <button class="btn btn-sm btn-danger btn-delete" onclick="deleteMapel('{{ route('mapel.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                             </td>
                                             @endif
                                         </tr>
@@ -83,6 +83,25 @@
 @endsection
 
 @push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
+
 <script>
+        function deleteMapel(action){
+        Swal.fire({
+            title: 'Hapus Mata Pelajaran?',
+                text: "Apakah Anda yakin akan menghapus mata pelajaran ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href=action
+                }
+            })
+        }
 </script>
 @endpush

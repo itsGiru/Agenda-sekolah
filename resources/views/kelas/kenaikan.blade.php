@@ -12,7 +12,7 @@
                 <div class="card-body text-center border-bottom">
                     <h2 class="mb-5">Jumlah Siswa Jurusan {{ $jurusan->jurusan }} : {{ $list }}</h2>
                     <div>
-                        <button type="button" onclick="naikKelas('{{ route('jurusan.kenaikan.update', $jurusan->id) }}')" href="" class="btn btn-success btn-lg w-100">Naikkan Kelas</button>
+                        <button type="button" onclick="naikKelas('{{ route('jurusan.kenaikan.update', $jurusan->id) }}')" class="btn btn-success btn-lg w-100">Naikkan Kelas</button>
                     </div>
                 </div>
                 <div class="card-body ">
@@ -48,8 +48,8 @@
 <script>
     function naikKelas(action){
         Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Naikkan semua kelas yang ada di Jurusan {{ $jurusan->jurusan }}",
+            title: 'Naikkan Kelas?',
+            text: "Anda akan menaikkan semua kelas yang ada di Jurusan {{ $jurusan->jurusan }}",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

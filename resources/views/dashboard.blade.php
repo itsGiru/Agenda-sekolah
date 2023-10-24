@@ -95,7 +95,9 @@
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
                         <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h4 class="text-capitalize">Selamat Datang, {{ auth()->user()->name ?? 'Undefined' }} !</h4>
+                            <h4 class="text-capitalize">Selamat Datang ,
+                                <br>{{ auth()->user()->name ?? 'Undefined' }} !
+                            </h4>
                             <h4 class="text-sm mb-0">
                                         @if(Auth::user()->role === "1")
                                             <h5>(Admin)</h5>

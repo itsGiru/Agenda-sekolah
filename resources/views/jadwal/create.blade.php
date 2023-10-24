@@ -1,13 +1,13 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-@include('layouts.navbars.auth.topnav', ['title' => 'Tambah User'])
+@include('layouts.navbars.auth.topnav', ['title' => 'Tambah Jadwal'])
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card" style="background-color: rgb(240, 240, 240); border-block-color: inherit">
                 <div class="card-header" style="background-color:  rgb(240, 240, 240)">
-                    <h4>Kelola Jadwal</h4>
+                    <h4>Tambah Jadwal</h4>
                 </div>
                 <div id="alert">
                     @include('components.alert')

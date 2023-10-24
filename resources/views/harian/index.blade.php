@@ -47,20 +47,26 @@
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">S, I, A, Dispensasi</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Keterangan</th>
+                                          @if (Auth::user()->role==2)
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Aksi</th>
+                                          @endif
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        @foreach ($absenSiswa as $item)
+                                        @forelse ($absenSiswa as $item)
                                             <tr>
-                                                <td class="text-center">{{ $item->siswa->nama }}</td>
-                                                <td class="text-center">{{ $item->absensi }}</td>
-                                                <td class="text-center">{{ $item->keterangan }}</td>
+                                              <td class="text-center">{{ $item->siswa->nama }}</td>
+                                              <td class="text-center">{{ $item->absensi }}</td>
+                                              <td class="text-center">{{ $item->keterangan }}</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/daily-report/delete_siswa/' . $item->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                  <button class="btn btn-sm btn-danger btn-delete" onclick="deleteHarianSiswa('{{ route('harian.delete.siswa', $item->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <tr>
+                                              <td colspan="3" class="text-center">Belum ada Data</td>
+                                            </tr>
+                                        @endforelse
                                       </tbody>
                                     </table>
                                 </div>
@@ -75,21 +81,29 @@
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Mata Pelajaran</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Kehadiran</th>
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Materi / Tugas</th>
+                                          @if (Auth::user()->role==2)
                                           <th class="text-center text-uppercase text-xs font-weight-bolder">Aksi</th>
+                                          @endif
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        @foreach ($absenGuru as $item)
+                                        @forelse ($absenGuru as $item)
                                             <tr>
                                                 <td class="text-center">{{ $item->jadwal->guruMapel->guru->nama }}</td>
                                                 <td class="text-center">{{ $item->jadwal->guruMapel->mapel->nama_mapel }}</td>
                                                 <td class="text-center">{{ $item->keterangan }}</td>
                                                 <td class="text-center">{{ $item->tugasmateri }}</td>
+                                                @if (Auth::user()->role==2)
                                                 <td class="text-center">
-                                                  <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/daily-report/delete_guru/' . $item->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                  <button class="btn btn-sm btn-danger btn-delete" onclick="deleteHarianGuru('{{ route('harian.delete.guru', $item->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                                 </td>
+                                                @endif
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <tr>
+                                              <td colspan="4" class="text-center">Belum ada Data</td>
+                                            </tr>
+                                        @endforelse
                                       </tbody>
                                     </table>
 
@@ -104,4 +118,44 @@
     </div>
 @include('layouts.footers.auth.footer')
 @endsection
+
+@push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
+    <script>
+      function deleteHarianSiswa(action){
+        Swal.fire({
+            title: 'Hapus Data Kehadiran Siswa?',
+                text: "Apakah Anda yakin akan menghapus data kehadiran siswa ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href=action
+                }
+            })
+        }
+
+        function deleteHarianGuru(action){
+        Swal.fire({
+            title: 'Hapus Data Kehadiran Guru?',
+                text: "Apakah Anda yakin akan menghapus data kehadiran guru ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href=action
+                }
+            })
+        }
+    </script>
+@endpush
 

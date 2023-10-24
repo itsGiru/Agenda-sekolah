@@ -18,8 +18,8 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
+                        <table class="table-bordered table align-items-center mb-0">
+                            <thead style="background-color: rgb(194, 194, 194)">
                                 <tr>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Mata Pelajaran</th>
@@ -43,7 +43,7 @@
                                         <td class="text-center">
                                             <a href="{{ URL::to('/edit_guru/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a href="{{ URL::to('/edit_gurumapel/' . $row->id) }}" class="btn btn-sm btn-success">Edit Mapel<i></i></a>
-                                            <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_guru/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                            <button class="btn btn-sm btn-danger btn-delete" onclick="deleteGuru('{{ route('list-guru.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                         </td>
                                         @endif
                                     </tr>
@@ -57,3 +57,25 @@
     </div>
     @include('layouts.footers.auth.footer')
 @endsection
+@push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
+    <script>
+         function deleteGuru(action){
+            Swal.fire({
+                title: 'Hapus Guru?',
+                    text: "Apakah Anda yakin akan menghapus guru ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Iya',
+                    cancelButtonText: 'Batal'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href=action
+                    }
+                })
+            }
+    </script>
+@endpush

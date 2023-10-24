@@ -15,7 +15,10 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas=Kelas::has('jurusan')->get();
+        $kelas=Kelas::has('jurusan')
+        ->orderBy('id_jurusan', 'asc')
+        ->orderBy('tingkat', 'desc')
+        ->get();
         $jurusan=Jurusan::all();
         return view('kelas.index', compact('kelas', 'jurusan'));
     }
@@ -71,29 +74,39 @@ class KelasController extends Controller
 
     public function kenaikan(int $id)
     {
-        $kelas=Kelas::whereIdJurusan($id)->get();
+        $kelas = Kelas::whereIdJurusan($id)
+            ->orderByRaw('kelas, tingkat DESC')
+            ->get();
         foreach ($kelas as $item) {
-            if ( $item->tingkat=='12') {
-                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['lulus'=>1]);
-            
-            } elseif ( $item->tingkat=='11' ){
-                $naikKelas=Kelas::where('tingkat', '12')->where('id_jurusan', $item->id_jurusan)->firstOrCreate(
-                    ['tingkat'=>'12'],
-                    ['kelas'=>$item->kelas],
-                    ['id_jurusan'=>$item->id_jurusan]
-                );
-                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas'=>$naikKelas->id]);
-            } elseif ( $item->tingkat=='10' ){
-                $naikKelas=Kelas::where('tingkat', '11')->where('id_jurusan', $item->id_jurusan)->firstOrCreate(
-                    ['tingkat'=>'11'],
-                    ['kelas'=>$item->kelas],
-                    ['id_jurusan'=>$item->id_jurusan]
-                );
-                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas'=>$naikKelas->id]);
+            if ($item->tingkat == '12') {
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['lulus' => 1]);
+            } elseif ($item->tingkat == '11') {
+                $naikKelas = Kelas::firstOrNew([
+                    'tingkat' => '12',
+                    'kelas' => $item->kelas,
+                    'id_jurusan' => $id
+                ]);
 
+                if (!$naikKelas->exists) {
+                    $naikKelas->save();
+                }
+
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas' => $naikKelas->id]);
+            } elseif ($item->tingkat == '10') {
+                $naikKelas = Kelas::firstOrNew([
+                    'tingkat' => '11',
+                    'kelas' => $item->kelas,
+                    'id_jurusan' => $item->id_jurusan
+                ]);
+
+                if (!$naikKelas->exists) {
+                    $naikKelas->save();
+                }
+
+                Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['id_kelas' => $naikKelas->id]);
             }
-            
         }
+
         RiwayatKenaikanKelas::create(['id_jurusan'=>$id]);
         return redirect()->route('jurusan.index')->with('success', 'Berhasil Menaikkan Kelas');
     }

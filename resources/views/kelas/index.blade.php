@@ -11,11 +11,9 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                         <h3 class="card-title">List Kelas</h3>
-                        @if (Auth::user()->role == 1)
                         <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Tambah Kelas
-                          </button>
-                        @endif
+                        </button>
                         </div>
                         <div id="alert">
                             @include('components.alert')
@@ -37,7 +35,7 @@
                                             <td class="text-center">{{ $row->tingkat }} {{ $row->kelas}}</td>
                                             <td class="text-center">{{ $row->jurusan->jurusan }}</td>
                                             <td class="text-center">
-                                                <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_kelas/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                <button class="btn btn-sm btn-danger btn-delete" onclick="deleteKelas('{{ route('kelas.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,16 +98,34 @@
 @endsection
 
 @push('js')
-<script>
-    document.getElementById('jurusan').addEventListener('change', function () {
-        const jurusanId = this.value;
-        const kelasField = document.getElementById('kelas-field');
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
+    <script>
+        document.getElementById('jurusan').addEventListener('change', function () {
+            const jurusanId = this.value;
+            const kelasField = document.getElementById('kelas-field');
 
-        if (jurusanId) {
-            kelasField.style.display = 'block';
-        } else {
-            kelasField.style.display = 'none';
-        }
-    });
-</script>
+            if (jurusanId) {
+                kelasField.style.display = 'block';
+            } else {
+                kelasField.style.display = 'none';
+            }
+        });
+        function deleteKelas(action){
+                Swal.fire({
+                    title: 'Hapus Kelas?',
+                    text: "Apakah Anda yakin akan menghapus kelas ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Iya',
+                    cancelButtonText: 'Batal'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href=action
+                    }
+                })
+            }
+    </script>
 @endpush

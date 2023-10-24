@@ -36,7 +36,7 @@
                                             <td class="text-center">{{ $row->jurusan}}</td>
                                             <td class="text-center">
                                                 <a class="btn btn-sm btn-primary" href="{{ URL::to('/jurusan/kenaikan/' . $row->id) }}" id="delete">Kenaikan<i></i></a>
-                                                <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_jurusan/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                <button class="btn btn-sm btn-danger btn-delete" onclick="deleteJurusan('{{ route('jurusan.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -79,6 +79,25 @@
 @endsection
 
 @push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
 <script>
+    function deleteJurusan(action){
+        Swal.fire({
+            title: 'Hapus Jurusan?',
+            text: "Apakah Anda yakin akan menghapus jurusan ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href=action
+            }
+        })
+    }
+
 </script>
 @endpush

@@ -42,7 +42,9 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    @if (Auth::user()->role == 1)
                                     <th class="text-center">Kelas</th>
+                                    @endif
                                     <th class="text-center">No. Absen</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Jenis Kelamin</th>
@@ -54,7 +56,9 @@
                             <tbody>
                                 @foreach ($list as $row)
                                     <tr>
+                                    @if (Auth::user()->role == 1)
                                     <td class="kelas-id text-center">{{ $row->kelas->tingkat }} {{ $row->kelas->kelas }}</td>
+                                    @endif
                                     <td class="text-center">{{ $row->no_absen }}</td>
                                         <td class="text-center">{{ $row->nama }}</td>
                                         <td class="text-center">{{ $row->jenis_kelamin }}</td>
@@ -64,7 +68,7 @@
                                         @endif
                                         @if (Auth::user()->role == 3)
                                             <a href="{{ route('list-siswa.edit_siswa' , $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_siswa/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                            <button class="btn btn-sm btn-danger btn-delete" onclick="deleteSiswa('{{ route('siswa.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
                                         </td>
                                     @endif
                                     </tr>
@@ -80,17 +84,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Detail Siswa <span id="nama-siswa"></span></h5>
+              <h5 class="modal-title" id="exampleModalLabel">Detail Siswa : <span id="nama-siswa"></span></h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
             <ul class="list-unstyled">
-                <li>Sakit: <span id="siswa-sakit"></span></li>
-                <li>Izin: <span id="siswa-izin"></span></li>
-                <li>Alpa: <span id="siswa-alpa"></span></li>
-                <li>Dispensasi: <span id="siswa-dispensasi"></span></li>
+                <li>Sakit : <span id="siswa-sakit"></span></li>
+                <li>Izin : <span id="siswa-izin"></span></li>
+                <li>Alpa : <span id="siswa-alpa"></span></li>
+                <li>Dispensasi : <span id="siswa-dispensasi"></span></li>
             </ul>
             </div>
           </div>
@@ -100,6 +104,8 @@
 @endsection
 
 @push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
 @if (Auth::user()->role == 1)
 <script>
     // Menangani perubahan nilai pada elemen select
@@ -141,5 +147,22 @@
         console.error('Error fetching options:', error);
       });
     }
+
+    function deleteSiswa(action){
+            Swal.fire({
+                title: 'Hapus Siswa?',
+                    html: "<b class='text-danger'>Peringatan!</b> Riwayat kehadiran siswa akan ikut terhapus! Pastikan anda telah mencetak laporan bulanannya",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Iya',
+                    cancelButtonText: 'Batal'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href=action
+                    }
+                })
+            }
 </script>
 @endpush

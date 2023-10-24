@@ -17,9 +17,11 @@
                         }
                         @endphp
                     </h4>
-                    @if (Auth::user()->role == 3 )
-                    <a href="tambah_jadwal" class="btn btn-success">Tambah Jadwal</a>
-                    @endif
+                    </div>
+                    <div>
+                        @if (Auth::user()->role == 3 )
+                        <a href="tambah_jadwal" class="btn btn-success">Tambah Jadwal</a>
+                        @endif
                     </div>
                     <div id="alert">
                         @include('components.alert')
@@ -27,15 +29,17 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive p-0">
-                        <table class="table-bordered table-hover table align-items-center mb-0">
-                            <thead>
+                        <table class="table-bordered table align-items-center mb-0">
+                            <thead style="background-color: rgb(194, 194, 194)">
                                 <tr>
                                     <th class="text-center">Hari</th>
                                     <th class="text-center">Guru & Mata Pelajaran</th>
+                                    @if (Auth::user()->role == 3)
                                     <th class="text-center">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="background-color: rgb(255, 255, 255)">
                                 @foreach ($list as $row)
                                     <tr>
                                         <td class="text-center">{{ match ($row->hari) {
@@ -52,14 +56,11 @@
                                                 {{ $row->guruMapel->guru->nama }} - {{ $row->guruMapel->mapel->nama_mapel }}
                                             </ul>
                                         </td>
+                                        @if (Auth::user()->role == 3)
                                         <td class="text-center">
-                                            @if (Auth::user()->role == 2)
-                                                <button class="btn btn-sm btn-danger btn-delete" disabled><i class="fas fa-trash"></i></button>
-                                            @else
-                                                {{-- <a href="{{ URL::to('/edit_jadwal/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a> --}}
-                                                <a class="btn btn-sm btn-danger btn-delete" href="{{ URL::to('/delete_jadwal/' . $row->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                                <button class="btn btn-sm btn-danger btn-delete" onclick="deleteGuruMapel('{{ route('jadwal.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>
+                                            </td>
                                             @endif
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -73,6 +74,9 @@
 @endsection
     
 @push('js')
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.css') }}">
+<script src="{{ asset('assets/js/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>
+
 <script>
     const table = document.querySelector('table');
     
@@ -88,5 +92,23 @@
             firstCell.remove();
         }
     }
+
+    function deleteGuruMapel(action){
+            Swal.fire({
+                title: 'Hapus Mata Pelajaran Pada Hari Tersebut?',
+                    html: "<b class='text-danger'>Peringatan!</b> Riwayat kehadiran guru akan ikut terhapus! Pastikan anda telah mencetak laporan bulanannya",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Iya',
+                    cancelButtonText: 'Batal'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href=action
+                    }
+                })
+            }
+
     </script>
 @endpush

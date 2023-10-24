@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detail Laporan Bulan {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM') }} Kelas
+    <title>Laporan Bulan {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM') }} Kelas
         @php
         $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
         if ($kelas) {
@@ -10,22 +10,13 @@
             echo $kelas->kelas;
         }
         @endphp
+
     </title>
     <style>
-        .kop-surat {
-            text-align: center;
+        .header-divider {
+            border-bottom: 1px solid #000;
+            margin-top: 20px;
             margin-bottom: 20px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        .kop-surat h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        .alamat-dinas {
-            font-size: 1.1rem;
-            margin-top: 5px;
         }
 
         table {
@@ -38,14 +29,14 @@
             text-align: center;
         }
         th {
-            background-color: #ccc;
+            background-color: #ffd900;
         }
         th.text-uppercase {
             text-transform: uppercase;
             font-weight: bold;
         }
         th[rowspan="2"], th[colspan="3"] {
-            background-color: #ccc;
+            background-color: #ffd900;
         }
         th[rowspan="2"] {
             text-transform: uppercase;
@@ -60,10 +51,11 @@
     </style>
 </head>
 <body>
-    <div class="kop-surat">
-        <img src="{{ asset('images/kop-surat.jpg') }}" alt="Kop Surat">
-    </div>
-    <h3>Detail Laporan Bulan {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM') }} Kelas
+    <h2 style="text-align: center">Laporan Bulanan</h2>
+    <h3 style="text-align: center">
+        Bulan : {{ \Carbon\Carbon::parse('01-'.request()->bulan)->isoFormat('MMMM') }}
+    </h3>
+    <h3 style="text-align: center">Kelas : 
         @php
         $kelas = App\Models\Kelas::find(Auth::user()->id_kelas);
         if ($kelas) {
@@ -73,41 +65,9 @@
         }
         @endphp
     </h3>
-    
-    <h4>Siswa</h4>
-    <table>
-        <thead>
-            <tr>
-                <th rowspan="2" class="text-uppercase">No</th>
-                <th rowspan="2" class="text-uppercase">Nama Siswa</th>
-                <th colspan="4" class="text-uppercase">Jumlah Keterangan Per Bulan</th>
-            </tr>
-            <tr>
-                <th class="text-uppercase">Sakit</th>
-                <th class="text-uppercase">Izin</th>
-                <th class="text-uppercase">Alpa</th>
-                <th class="text-uppercase">Dispensasi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($absenSiswas as $item)
-            <tr>
-                <td class="text-center">{{ $loop->iteration }}</td>
-                <td class="text-center">{{ $item->siswa->nama }}</td>
-                <td class="text-center">{{ $item->sakit }}</td>
-                <td class="text-center">{{ $item->izin }}</td>
-                <td class="text-center">{{ $item->alpa }}</td>
-                <td class="text-center">{{ $item->dispensasi }}</td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="6" class="text-center fs-5">Belum ada Data</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    <div class="header-divider"></div>
 
-    <h4>Guru</h4>
+    <h4>A. Daftar Kehadiran Guru</h4>
     <table>
         <thead>
             <tr>
@@ -139,5 +99,60 @@
             @endforelse
         </tbody>
     </table>
+    <h4>B. Daftar Kehadiran Siswa</h4>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" class="text-uppercase">No</th>
+                <th rowspan="2" class="text-uppercase">Nama Siswa</th>
+                <th colspan="4" class="text-uppercase">Jumlah Keterangan Per Bulan</th>
+            </tr>
+            <tr>
+                <th class="text-uppercase">Sakit</th>
+                <th class="text-uppercase">Izin</th>
+                <th class="text-uppercase">Alpa</th>
+                <th class="text-uppercase">Dispensasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($absenSiswas as $item)
+            <tr>
+                <td class="text-center">{{ $loop->iteration }}</td>
+                <td class="text-center">{{ $item->siswa->nama }}</td>
+                <td class="text-center">{{ $item->sakit }}</td>
+                <td class="text-center">{{ $item->izin }}</td>
+                <td class="text-center">{{ $item->alpa }}</td>
+                <td class="text-center">{{ $item->dispensasi }}</td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="6" class="text-center fs-5">Belum ada Data</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+    
+    <div class="right-align">
+        <br>
+        <br>
+        <p style="text-align: right">……………………………, …………………20…………</p>
+        <br>Mengetahui,
+        <br>
+        <br>
+        <div>
+            Kepala Sekolah
+            <span style="margin-left: 170px">Kepala Kompetensi</span>
+            <span style="margin-left: 190px">Wali Kelas</span>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            ( ……………… )
+            <span style="margin-left: 160px">( ……………… )</span>
+            <span style="margin-left: 185px">( ……………… )</span>
+        </div>
+    </div>
 </body>
 </html>
