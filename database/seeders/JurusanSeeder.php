@@ -12,6 +12,7 @@ class JurusanSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+    
     public function run(): void
     {
         Jurusan::insert([
