@@ -156,7 +156,7 @@
                                     <p>Selamat Menjalani Aktivitas Anda ^_^</p>
                                 </div>
                             </div>
-                            <div class="carousel-item h-100" style="background-image: url('https://telegra.ph/file/3869eabf8ae3c048a8f30.jpg');background-size: cover;">
+                            <div class="carousel-item h-100" style="background-image: url('https://telegra.ph/file/4661cf1cdc99d48f41992.jpg');background-size: cover;">
                                 <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                         <i class="ni ni-book-bookmark text-dark" aria-hidden="true"></i>
