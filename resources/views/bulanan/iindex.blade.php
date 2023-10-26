@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($bulananSiswa as $item)
+                        @forelse ($bulananSiswa as $item)
                           <tr>
                             <td class="text-center">{{ \Carbon\Carbon::parse('01-'.$item->new_date)->isoFormat('MMMM Y') }}</td>
                             <td class="text-center">
@@ -39,7 +39,11 @@
                                 @endif
                             </td>
                           </tr>
-                          @endforeach
+                          @empty
+                          <tr>
+                            <td colspan="6" class="text-center fs-5">Belum ada Data</td>
+                          </tr>
+                          @endforelse
                         </tbody>
                     </table>
                 </div>

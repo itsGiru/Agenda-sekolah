@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Jurusan;
 use Barryvdh\DomPDF\PDF;
 use App\Models\AbsenGuru;
 use App\Models\AbsenSiswa;
@@ -16,13 +17,17 @@ class LaporanBulananController extends Controller
     {
         $kelasKakom = [];
 
-        // Jika pengguna adalah Kakom (role 4), ambil daftar kelas Kakom
+        $bulananSiswa=AbsenSiswa::select(DB::raw('count(id) as data'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"), DB::raw('YEAR(created_at) year, MONTH(created_at) month'));
+
         if (auth()->user()->role == 4) {
             $kelasKakom = Kelas::where('id_jurusan')->get();
+            $kelasPluck = Kelas::where('id_jurusan', auth()->user()->id_jurusan)->pluck('id', 'id');
+            $bulananSiswa=$bulananSiswa->whereIn('id_kelas', $kelasPluck);
+        } else {
+            $bulananSiswa=$bulananSiswa->where('id_kelas', auth()->user()->id_kelas);
         }
 
-        $bulananSiswa=AbsenSiswa::select(DB::raw('count(id) as data'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
-        ->groupby('year', 'month')->get();
+        $bulananSiswa=$bulananSiswa->groupby('year', 'month')->get();
         return view('bulanan.iindex', compact('bulananSiswa', 'kelasKakom'));
     }
 
@@ -89,7 +94,12 @@ class LaporanBulananController extends Controller
 
     public function kakom($bulan)
     {
-        $kelasCollection = Kelas::where('id_jurusan', Auth::user()->id_jurusan)->get();
+        $kelasCollection =  Jurusan::whereHas('kelas')
+        ->with(['kelas' => function($query) {
+            $query->orderByRaw('kelas, tingkat DESC');
+        }])
+        ->where('id', auth()->user()->id_jurusan)
+        ->get();
 
         $date=explode('-', $bulan);
         $date_bulan=$date[0];

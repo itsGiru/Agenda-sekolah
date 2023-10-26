@@ -48,8 +48,8 @@
 <script>
     function naikKelas(action){
         Swal.fire({
-            title: 'Naikkan Kelas?',
-            text: "Anda akan menaikkan semua kelas yang ada di Jurusan {{ $jurusan->jurusan }}",
+            title: 'Naikkan Semua Kelas yang ada pada Jurusan {{ $jurusan->jurusan }}?',
+            html: "<b class='text-danger'>Peringatan!</b> Data kehadiran pada jurusan ini akan terhapus! Pastikan setiap kelas sudah mencetak datanya & konfirmasi terlebih dahulu kepada setiap Wali Kelas/Ketua Muridnya!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

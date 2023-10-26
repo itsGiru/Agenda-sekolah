@@ -16,11 +16,14 @@
                                     <div class="mb-2">
                                         <h5>Kelas :</h5>
                                         <select name="kelas" class="form-control">
-                                            <option value="">Pilih Kelas</option>
-                                            @foreach($kelasCollection as $item)
-                                                <option value="{{ $item->id }}" {{ ($item->id==request()->kelas) ? 'selected' : null }}>{{ $item->tingkat }} {{ $item->kelas }}</option>
+                                          <option value="">Pilih Kelas</option>
+                                          @foreach($kelasCollection as $jurusan)
+                                          <optgroup label="{{ $jurusan->jurusan }}">
+                                            @foreach ($jurusan->kelas as $kelas)
+                                              <option value="{{ $kelas->id }}" {{ ($kelas->id==request()->kelas) ? 'selected' : null }}>{{ $kelas->tingkat }} {{ $kelas->kelas }}</option>                                              @endforeach
                                             @endforeach
-                                        </select>
+                                          </optgroup>
+                                      </select>
                                     </div>
                                     <div>
                                         <button class="btn btn-outline-primary" type="submit">Cari</button>

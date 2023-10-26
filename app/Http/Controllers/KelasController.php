@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
-use App\Models\RiwayatKenaikanKelas;
 use App\Models\Siswa;
 use App\Models\Jurusan;
+use App\Models\AbsenSiswa;
 use Illuminate\Http\Request;
+use App\Models\RiwayatKenaikanKelas;
 
 class KelasController extends Controller
 {
@@ -78,6 +79,7 @@ class KelasController extends Controller
             ->orderByRaw('kelas, tingkat DESC')
             ->get();
         foreach ($kelas as $item) {
+            AbsenSiswa::where('id_kelas', $item->id)->delete();
             if ($item->tingkat == '12') {
                 Siswa::where('id_kelas', $item->id)->where('lulus', 0)->update(['lulus' => 1]);
             } elseif ($item->tingkat == '11') {
@@ -108,6 +110,7 @@ class KelasController extends Controller
         }
 
         RiwayatKenaikanKelas::create(['id_jurusan'=>$id]);
+        Siswa::where('lulus', 1)->delete();
         return redirect()->route('jurusan.index')->with('success', 'Berhasil Menaikkan Kelas');
     }
 

@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use DB;
-use App\Models\Siswa;
 use App\Models\Kelas;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Siswa;
+use App\Models\Jurusan;
 use App\Models\AbsenSiswa;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
     public function SiswaList(Request $request)
     {
 
-        $list_kelas = Kelas::all(); // Mengambil semua data kelas
+        $list_kelas = Jurusan::whereHas('kelas')
+        ->with(['kelas' => function($query) {
+            $query->orderByRaw('kelas, tingkat DESC');
+        }])
+        ->get();
 
         if (Auth::user()->role == 1) {
             $list = Siswa::with('kelas')

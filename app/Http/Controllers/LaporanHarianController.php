@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Jurusan;
 use App\Models\AbsenGuru;
 use App\Models\AbsenSiswa;
 use Illuminate\Http\Request;
@@ -35,7 +36,12 @@ class LaporanHarianController extends Controller
 
     public function kakom()
     {
-        $kelasCollection = Kelas::where('id_jurusan', Auth::user()->id_jurusan)->get();
+        $kelasCollection =  Jurusan::whereHas('kelas')
+        ->with(['kelas' => function($query) {
+            $query->orderByRaw('kelas, tingkat DESC');
+        }])
+        ->where('id', auth()->user()->id_jurusan)
+        ->get();
 
         $absenSiswa=AbsenSiswa::whereHas('siswa', function($query){
             $query->where('id_kelas', request()->kelas);

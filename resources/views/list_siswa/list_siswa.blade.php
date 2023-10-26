@@ -28,8 +28,12 @@
                         <label for="filter_kelas">Filter Kelas:</label>
                         <select id="filter_kelas" class="form-select">
                             <option value="">Semua Kelas</option>
-                            @foreach ($list_kelas as $kelas)
-                                <option value="{{ $kelas->tingkat }} {{ $kelas->kelas }}">{{ $kelas->tingkat }} {{ $kelas->kelas }}</option>
+                            @foreach ($list_kelas as $jurusan)
+                                <optgroup label="{{ $jurusan->jurusan }}">
+                                    @foreach ($jurusan->kelas as $kelas)
+                                    <option value="{{ $kelas->tingkat }} {{ $kelas->kelas }}">{{ $kelas->tingkat }} {{ $kelas->kelas }}</option>
+                                    @endforeach
+                                </optgroup>
                             @endforeach
                         </select>
                     </div>

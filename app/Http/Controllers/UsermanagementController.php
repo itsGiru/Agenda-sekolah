@@ -98,7 +98,7 @@ class UsermanagementController extends Controller
 
     public function UserList(Request $request)
     {
-        $list = DB::table('users')->get();
+        $list = User::with('jurusan')->get();
         return view('users.list_user', compact('list'));
     }
 
@@ -192,7 +192,7 @@ class UsermanagementController extends Controller
                     return redirect()->route('users.index')->with('success', 'User Berhasil Diupdate!');
 
                 } else {
-                    return redirect()->back()->with('error', 'User Berhasil Diupdate!');
+                    return redirect()->back()->with('error', 'Ketua Murid di Kelas tersebut sudah ada');
                 }
             } elseif(request()->role=='3'){
                 $check=User::where('id_kelas', request()->id_kelas)->where('role', '3')->where('id', '!=', $existingUser->id)->count();

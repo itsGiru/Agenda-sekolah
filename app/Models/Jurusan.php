@@ -13,4 +13,11 @@ class Jurusan extends Model
         'jurusan',
 
     ];
+
+    public function kelas()
+    {
+        {
+            return $this->hasMany(Kelas::class, 'id_jurusan');
+        }
+    }
 }

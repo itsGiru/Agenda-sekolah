@@ -70,7 +70,7 @@
                                 <select id="kelasSelect" name="id_kelas" class="form-control">
                                     {{-- @foreach($kelas as $item) --}}
                                         <option></option>
-                                        <option value="{{ $edit->kelas->id }}" selected>{{ $edit->kelas->tingkat }} {{ $edit->kelas->kelas }}</option>
+                                        <option value="{{ $edit->kelas->id ?? 0 }}" selected>{{ $edit->kelas->tingkat ?? null }} {{ $edit->kelas->kelas ?? null }}</option>
                                     {{-- @endforeach --}}
                                 </select>
                             </div>

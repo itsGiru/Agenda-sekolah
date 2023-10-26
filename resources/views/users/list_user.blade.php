@@ -24,6 +24,8 @@
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Izin</th>
+                                    <th class="text-center">Jurusan</th>
+                                    <th class="text-center">Kelas</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -59,6 +61,16 @@
                                                 }
                                             @endphp
                                         </td>
+                                        @if ($row->role==4)
+                                        <td class="text-center">{{ $row->jurusan->jurusan }}</td>
+                                        <td></td>
+                                        @elseif ($row->role==2 || $row->role==3)
+                                        <td class="text-center">{{ $row->jurusan->jurusan }}</td>
+                                        <td class="text-center">{{ $row->kelas->tingkat }} {{ $row->kelas->kelas }}</td>
+                                        @else
+                                        <td></td>
+                                        <td></td>
+                                        @endif
                                         <td class="text-center">
                                             <a href="{{ URL::to('/edit_user/' . $row->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <button class="btn btn-sm btn-danger btn-delete" onclick="deleteUser('{{ route('users.delete', $row->id) }}')" id="delete"><i class="fas fa-trash"></i></button>

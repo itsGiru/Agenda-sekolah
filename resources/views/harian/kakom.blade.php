@@ -20,9 +20,12 @@
                                     <div class="mb-2">
                                         <select name="kelas" class="form-control">
                                             <option value="">Pilih Kelas</option>
-                                            @foreach($kelasCollection as $item)
-                                                <option value="{{ $item->id }}" {{ ($item->id==request()->kelas) ? 'selected' : null }}>{{ $item->tingkat }} {{ $item->kelas }}</option>
-                                            @endforeach
+                                            @foreach($kelasCollection as $jurusan)
+                                            <optgroup label="{{ $jurusan->jurusan }}">
+                                              @foreach ($jurusan->kelas as $kelas)
+                                                <option value="{{ $kelas->id }}" {{ ($kelas->id==request()->kelas) ? 'selected' : null }}>{{ $kelas->tingkat }} {{ $kelas->kelas }}</option>                                              @endforeach
+                                              @endforeach
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div>
